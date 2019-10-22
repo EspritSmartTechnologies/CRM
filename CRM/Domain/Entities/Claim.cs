@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 
 
-namespace Data.Entities
+namespace Domain.Entities
 {
     public enum Types
     {

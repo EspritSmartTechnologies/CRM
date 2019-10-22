@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0CE90B13-2A38-4200-9CD5-AA0B99A1E457}</ProjectGuid>
+    <ProjectGuid>{3FA05770-3CA9-4DB6-B7F4-6DD1F88F4673}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Data</RootNamespace>
-    <AssemblyName>Data</AssemblyName>
+    <RootNamespace>Services</RootNamespace>
+    <AssemblyName>Services</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -51,63 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBContext.cs" />
-    <Compile Include="Migrations\201910220536329_creation.cs" />
-    <Compile Include="Migrations\201910220536329_creation.designer.cs">
-      <DependentUpon>201910220536329_creation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910221302044_maleeek.cs" />
-    <Compile Include="Migrations\201910221302044_maleeek.designer.cs">
-      <DependentUpon>201910221302044_maleeek.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910221310580_maleeek2.cs" />
-    <Compile Include="Migrations\201910221310580_maleeek2.designer.cs">
-      <DependentUpon>201910221310580_maleeek2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910221312273_maleeek3.cs" />
-    <Compile Include="Migrations\201910221312273_maleeek3.designer.cs">
-      <DependentUpon>201910221312273_maleeek3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910220536329_creation.resx">
-      <DependentUpon>201910220536329_creation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910221302044_maleeek.resx">
-      <DependentUpon>201910221302044_maleeek.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910221310580_maleeek2.resx">
-      <DependentUpon>201910221310580_maleeek2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910221312273_maleeek3.resx">
-      <DependentUpon>201910221312273_maleeek3.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configurations\" />
-    <Folder Include="Conventions\" />
-    <Folder Include="Infrastructures\" />
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{2e6b4878-f0ed-4a84-b6c0-7731f7d0dbd0}</Project>
-      <Name>Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ServicesPattern\ServicesPattern.csproj">
-      <Project>{b27f4ab9-bd34-4d3d-966b-b9415665eb7f}</Project>
-      <Name>ServicesPattern</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Services\Services.csproj">
-      <Project>{3fa05770-3ca9-4db6-b7f4-6dd1f88f4673}</Project>
-      <Name>Services</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

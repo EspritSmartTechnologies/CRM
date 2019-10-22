@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace Data.Entities
+namespace Domain.Entities
 {
     public class Category
     {
