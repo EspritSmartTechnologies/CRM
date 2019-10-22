@@ -7,12 +7,20 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Data.Entities
 {
-    public class Response
+    public enum Level
+    {
+        Très,
+        Satisfait,
+        Peu,
+        Non
+    }
+    public class Satisfaction
     {
         [Key]
-        public int IdResponse { get; set; }
-        public DateTime ResponseDate { get; set; }
+        public int IdSatisfaction { get; set; }
         public User User { get; set; }
-        public string Content { get; set; }
+        public Level Level { get; set; }
+        public Claim Claim { get; set; }
+
     }
 }

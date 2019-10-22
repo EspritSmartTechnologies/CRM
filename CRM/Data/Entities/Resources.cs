@@ -14,5 +14,6 @@ namespace Data.Entities
         public int Quantity { get; set; }
         public string Name { get; set; }
         public PointOfSale PointOfSale { get; set; }
+        public PointOfProspection pointOfProspection { get; set; }
     }
 }

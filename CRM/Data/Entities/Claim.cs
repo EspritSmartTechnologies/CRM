@@ -12,7 +12,7 @@ namespace Data.Entities
     public enum Types
     {
         Technique,
-        Financièr,
+        Financière,
         Relationnelle
     }
     public enum State
@@ -32,6 +32,7 @@ namespace Data.Entities
         public DateTime Date { get; set; }
         public List<Response> Responses { get; set; }
         public User User { get; set; }
+        public string Content { get; set; }
 
     }
 }

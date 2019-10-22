@@ -11,11 +11,7 @@ namespace Data
     class DBContext : DbContext
 
     {
-
-        public DBContext() : base("DBContext") { }
-
-
-
+        
 
         DbSet<Agents> Agents { get; set; }
         DbSet<Claim> Claims { get; set; }
@@ -29,6 +25,10 @@ namespace Data
         DbSet<Resources> Resources { get; set; }
         DbSet<Response> Responses { get; set; }
         DbSet<User> Users { get; set; }
+        DbSet<PointOfProspection> PointOfProspections { get; set; }
+        DbSet<Category> Categories { get; set; }
+        DbSet<Product> Products { get; set; }
+        DbSet<Satisfaction> Satisfactions { get; set; }
     }
 
 }

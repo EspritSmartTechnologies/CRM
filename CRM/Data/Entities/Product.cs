@@ -7,12 +7,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Data.Entities
 {
-    public class Agents
+    public class Product
     {
+
         [Key]
-        public int IdAgent { get; set; }
-        public string FullName{ get; set; }
+        public int IdProduct { get; set; }
+        public Category Category { get; set; }
+        public string Colour { get; set; }
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
         public PointOfSale PointOfSale { get; set; }
-        public PointOfProspection PointOfProspection { get; set; }
     }
 }

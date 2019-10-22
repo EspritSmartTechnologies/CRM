@@ -7,12 +7,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Data.Entities
 {
-    public class Response
+    public class Category
     {
         [Key]
-        public int IdResponse { get; set; }
-        public DateTime ResponseDate { get; set; }
-        public User User { get; set; }
-        public string Content { get; set; }
+        public int IdProduct { get; set; }
+        public string Label { get; set; }
     }
 }
