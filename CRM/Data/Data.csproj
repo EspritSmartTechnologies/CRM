@@ -52,6 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBContext.cs" />
+    <Compile Include="Infrastructure\DatabaseFactory.cs" />
+    <Compile Include="Infrastructure\Disposable.cs" />
+    <Compile Include="Infrastructure\IDatabaseFactory .cs" />
+    <Compile Include="Infrastructure\IRepositoryBase.cs" />
+    <Compile Include="Infrastructure\IUnitOfWork.cs" />
+    <Compile Include="Infrastructure\RepositoryBase.cs" />
+    <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="Migrations\201910220536329_creation.cs" />
     <Compile Include="Migrations\201910220536329_creation.designer.cs">
       <DependentUpon>201910220536329_creation.cs</DependentUpon>
@@ -73,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Infrastructure\desktop.ini" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -92,7 +100,6 @@
   <ItemGroup>
     <Folder Include="Configurations\" />
     <Folder Include="Conventions\" />
-    <Folder Include="Infrastructures\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>

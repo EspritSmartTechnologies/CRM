@@ -8,7 +8,7 @@ using Domain.Entities;
 
 namespace Data
 {
-    class DBContext : DbContext
+    public class DBContext : DbContext
 
     {
         
