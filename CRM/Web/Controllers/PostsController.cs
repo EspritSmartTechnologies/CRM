@@ -8,19 +8,17 @@ using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
 using Services;
+using Web.Models;
 
-namespace Web.Models
+namespace Web.Controllers
 {
     public class PostsController : Controller
     {
-
         private PostService ps = new PostService();
-
 
         // GET: Posts
         public ActionResult Index()
         {
-            
             return View(ps.GetAll().ToList());
         }
 
@@ -86,6 +84,7 @@ namespace Web.Models
         {
             if (ModelState.IsValid)
             {
+                
                 ps.Update(post);
                 ps.Commit();
                 return RedirectToAction("Index");
@@ -113,7 +112,7 @@ namespace Web.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Post post = ps.GetById((long)id);
+            Post post = ps.GetById((long)id); 
             ps.Delete(post);
             ps.Commit();
             return RedirectToAction("Index");
@@ -123,7 +122,7 @@ namespace Web.Models
         {
             if (disposing)
             {
-                //ps.Dispose();
+                
             }
             base.Dispose(disposing);
         }
