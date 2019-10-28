@@ -10,7 +10,7 @@ namespace Service.Pattern
     public interface IService<T> : IDisposable where T : class
     {
         void Add(T entity);
-        void Update(T entity);
+        void Update(int id,T entity);
         void Delete(T entity);
         void Delete(Expression<Func<T, bool>> where);
         T GetById(long id);
