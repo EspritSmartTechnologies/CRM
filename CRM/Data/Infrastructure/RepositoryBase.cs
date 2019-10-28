@@ -11,7 +11,7 @@ namespace Data.Infrastructure
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
         private DBContext dataContext;
-        private readonly IDbSet<T> dbset;
+        private IDbSet<T> dbset;
         IDatabaseFactory databaseFactory;
         public RepositoryBase(IDatabaseFactory dbFactory)
         {
@@ -34,6 +34,7 @@ namespace Data.Infrastructure
         {
             dbset.Attach(entity);
             dataContext.Entry(entity).State = EntityState.Modified;
+            
         }
         public virtual void Delete(T entity)
         {

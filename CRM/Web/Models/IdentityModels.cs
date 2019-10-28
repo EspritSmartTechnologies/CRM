@@ -29,5 +29,7 @@ namespace Web.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Domain.Entities.Post> Posts { get; set; }
     }
 }

@@ -49,5 +49,27 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{0ce90b13-2a38-4200-9cd5-aa0b99a1e457}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{2e6b4878-f0ed-4a84-b6c0-7731f7d0dbd0}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServicesPattern\ServicesPattern.csproj">
+      <Project>{b27f4ab9-bd34-4d3d-966b-b9415665eb7f}</Project>
+      <Name>ServicesPattern</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{3fa05770-3ca9-4db6-b7f4-6dd1f88f4673}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Web\Web.csproj">
+      <Project>{f7be8d6c-69e9-4c5a-977b-6a3ac70cf331}</Project>
+      <Name>Web</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

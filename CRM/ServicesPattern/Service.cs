@@ -11,82 +11,76 @@ using System.Threading.Tasks;
 
 namespace Service.Pattern
 {
-    public abstract class Service<TEntity> : IService<TEntity> where TEntity : class
+    public abstract class Service<T> : IService<T> where T : class
     {
 
         IUnitOfWork utwk;
-        private IUnitOfWork utwk1;
-        private IUnitOfWork ut;
 
         protected Service(IUnitOfWork utwk)
         {
             this.utwk = utwk;
         }
 
-        public Service()
-        {
-        }
 
-       
 
-        public virtual void Add(TEntity entity)
+        public void Add(T entity)
         {
             ////_repository.Add(entity);
-            utwk.getRepository<TEntity>().Add(entity);
+            utwk.getRepository<T>().Add(entity);
 
         }
 
-        public virtual void Update(TEntity entity)
+        public virtual void Update(T entity)
         {
             //_repository.Update(entity);
-            utwk.getRepository<TEntity>().Update(entity);
+            utwk.getRepository<T>().Update(entity);
         }
 
-        public virtual void Delete(TEntity entity)
+        public void Delete(T entity)
         {
             //   _repository.Delete(entity);
-            utwk.getRepository<TEntity>().Delete(entity);
+            utwk.getRepository<T>().Delete(entity);
         }
 
-        public virtual void Delete(Expression<Func<TEntity, bool>> where)
+        public void Delete(Expression<Func<T, bool>> where)
         {
             // _repository.Delete(where);
-            utwk.getRepository<TEntity>().Delete(where);
+            utwk.getRepository<T>().Delete(where);
         }
 
-        public virtual TEntity GetById(long id)
+        public T GetById(long id)
         {
             //  return _repository.GetById(id);
-            return utwk.getRepository<TEntity>().GetById(id);
+            return utwk.getRepository<T>().GetById(id);
         }
 
-        public virtual IEnumerable<TEntity> GetAll()
+        public IEnumerable<T> GetAll()
         {
-            return utwk.getRepository<TEntity>().GetAll();
+            return utwk.getRepository<T>().GetAll();
             //return _repository.GetById(id);
-            //  return utwk.getRepository<TEntity>().GetById(id);
+            //  return utwk.getRepository<T>().GetById(id);
         }
 
-        public virtual IEnumerable<TEntity> GetMany(Expression<Func<TEntity, bool>> filter = null, Expression<Func<TEntity, bool>> orderBy = null)
+        public IEnumerable<T> GetMany(Expression<Func<T, bool>> filter = null, Expression<Func<T, bool>> orderBy = null)
         {
             //  return _repository.GetAll();
-            return utwk.getRepository<TEntity>().GetMany(filter, orderBy);
+            return utwk.getRepository<T>().GetMany(filter, orderBy);
         }
 
-        public virtual TEntity Get(Expression<Func<TEntity, bool>> where)
+        public T Get(Expression<Func<T, bool>> where)
         {
             //return _repository.Get(where);
-            return utwk.getRepository<TEntity>().Get(where);
+            return utwk.getRepository<T>().Get(where);
         }
 
 
 
         public void Commit()
         {
-            
-                utwk.Commit();
-           
-            
+
+            utwk.Commit();
+
+
         }
 
 
@@ -94,5 +88,8 @@ namespace Service.Pattern
         {
             utwk.Dispose();
         }
+
+
+
     }
 }
