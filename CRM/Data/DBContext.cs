@@ -11,6 +11,11 @@ namespace Data
     public class DBContext : DbContext
 
     {
+
+        public DBContext():base("MyContext")
+        {
+
+        }
         
 
         DbSet<Agents> Agents { get; set; }
