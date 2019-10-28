@@ -9,7 +9,7 @@ using Domain.Entities;
 
 namespace Services
 {
-    class ProductService : Service<Product>, IProductService
+    public class ProductService : Service<Product>, IProductService
     {
         static IDatabaseFactory factory = new DatabaseFactory();
         static IUnitOfWork utk = new UnitOfWork(factory);

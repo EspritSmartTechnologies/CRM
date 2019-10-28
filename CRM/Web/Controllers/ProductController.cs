@@ -8,12 +8,14 @@ using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
 using Web.Models;
+using Services;
 
 namespace Web.Controllers
 {
     public class ProductController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        ProductService service = new ProductService();
 
         // GET: Product
         public ActionResult Index()
@@ -28,7 +30,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Product product = service.GetById((long)id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -51,8 +53,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Products.Add(product);
-                db.SaveChanges();
+                service.Add(product);
+                service.Commit();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +68,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Product product = service.GetById((long)id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -83,8 +85,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
+                service.Update(product);
+                service.Commit();
                 return RedirectToAction("Index");
             }
             return View(product);
@@ -97,7 +99,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Product product = service.GetById((long)id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -110,9 +112,9 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
-            db.SaveChanges();
+            Product product = service.GetById((long)id);
+            service.Delete(product);
+            service.Commit();
             return RedirectToAction("Index");
         }
 
