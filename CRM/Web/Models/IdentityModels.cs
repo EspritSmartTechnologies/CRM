@@ -31,5 +31,19 @@ namespace Web.Models
         }
 
         public System.Data.Entity.DbSet<Domain.Entities.Post> Posts { get; set; }
+
+        public System.Data.Entity.DbSet<Domain.Entities.Product> Products { get; set; }
+
+        public System.Data.Entity.DbSet<Domain.Entities.Category> Categories { get; set; }
+
+        public System.Data.Entity.DbSet<Domain.Entities.Comment> Comments { get; set; }
+
+        public System.Data.Entity.DbSet<Domain.Entities.PointOfProspection> PointOfProspections { get; set; }
+
+        public System.Data.Entity.DbSet<Domain.Entities.PointOfSale> PointOfSales { get; set; }
+
+        public System.Data.Entity.DbSet<Domain.Entities.React> Reacts { get; set; }
+
+        public System.Data.Entity.DbSet<Domain.Entities.Resources> Resources { get; set; }
     }
 }
