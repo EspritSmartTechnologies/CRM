@@ -20,7 +20,7 @@ namespace Web.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            return View(db.Products.ToList());
+            return View(service.GetAll().ToList());
         }
 
         // GET: Product/Details/5
