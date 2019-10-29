@@ -8,17 +8,19 @@ using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
 using Web.Models;
+using Services;
 
 namespace Web.Controllers
 {
     public class CategoryController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private CategoryService ps = new CategoryService();
 
         // GET: Category
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            return View(ps.GetAll().ToList());
         }
 
         // GET: Category/Details/5
@@ -28,7 +30,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            Category category = ps.GetById((long)id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -51,8 +53,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
-                db.SaveChanges();
+                ps.Add(category); 
+                ps.Commit();
                 return RedirectToAction("Index");
             }
 
@@ -97,7 +99,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            Category category= ps.GetById((long)id);
             if (category == null)
             {
                 return HttpNotFound();

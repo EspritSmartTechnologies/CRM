@@ -8,17 +8,19 @@ using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
 using Web.Models;
+using Services;
 
 namespace Web.Controllers
 {
     public class PointOfSalesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+       // private ApplicationDbContext db = new ApplicationDbContext();
+        private PointofsaleService ps = new PointofsaleService();
 
         // GET: PointOfSales
         public ActionResult Index()
         {
-            return View(db.PointOfSales.ToList());
+            return View(ps.GetAll().ToList());
         }
 
         // GET: PointOfSales/Details/5
@@ -28,7 +30,8 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PointOfSale pointOfSale = db.PointOfSales.Find(id);
+            
+            PointOfSale pointOfSale = ps.GetById((long)id);
             if (pointOfSale == null)
             {
                 return HttpNotFound();
@@ -51,8 +54,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.PointOfSales.Add(pointOfSale);
-                db.SaveChanges();
+                ps.Add(pointOfSale);
+                ps.Commit();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +69,8 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PointOfSale pointOfSale = db.PointOfSales.Find(id);
+            
+            PointOfSale pointOfSale = ps.GetById((long)id);
             if (pointOfSale == null)
             {
                 return HttpNotFound();
@@ -83,8 +87,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(pointOfSale).State = EntityState.Modified;
-                db.SaveChanges();
+                ps.Update(pointOfSale);
+                ps.Commit();
                 return RedirectToAction("Index");
             }
             return View(pointOfSale);
@@ -97,7 +101,8 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PointOfSale pointOfSale = db.PointOfSales.Find(id);
+           
+            PointOfSale pointOfSale = ps.GetById((long)id);
             if (pointOfSale == null)
             {
                 return HttpNotFound();
@@ -110,9 +115,9 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PointOfSale pointOfSale = db.PointOfSales.Find(id);
-            db.PointOfSales.Remove(pointOfSale);
-            db.SaveChanges();
+            PointOfSale pointofsale = ps.GetById((long)id);
+            ps.Delete(pointofsale);
+            ps.Commit();
             return RedirectToAction("Index");
         }
 
@@ -120,7 +125,7 @@ namespace Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                
             }
             base.Dispose(disposing);
         }
