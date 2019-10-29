@@ -85,7 +85,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                service.Update(product);
+                service.Update(product.IdProduct,product);
                 service.Commit();
                 return RedirectToAction("Index");
             }

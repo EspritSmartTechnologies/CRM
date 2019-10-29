@@ -30,10 +30,10 @@ namespace Service.Pattern
 
         }
 
-        public virtual void Update(T entity)
+        public virtual void Update(int id,T entity)
         {
             //_repository.Update(entity);
-            utwk.getRepository<T>().Update(entity);
+            utwk.getRepository<T>().Update(id,entity);
         }
 
         public void Delete(T entity)
