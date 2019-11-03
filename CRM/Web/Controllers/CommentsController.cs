@@ -7,18 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
+using Services;
 using Web.Models;
 
 namespace Web.Controllers
 {
     public class CommentsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private CommentService cs = new CommentService();
 
         // GET: Comments
         public ActionResult Index()
         {
-            return View(db.Comments.ToList());
+            return View(cs.GetAll().ToList());
         }
 
         // GET: Comments/Details/5
@@ -28,7 +29,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comment comment = db.Comments.Find(id);
+            Comment comment = cs.GetById((long)id);
             if (comment == null)
             {
                 return HttpNotFound();
@@ -51,8 +52,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Comments.Add(comment);
-                db.SaveChanges();
+                cs.Add(comment);
+                cs.Commit();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +67,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comment comment = db.Comments.Find(id);
+            Comment comment = cs.GetById((long)id);
             if (comment == null)
             {
                 return HttpNotFound();
@@ -83,8 +84,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(comment).State = EntityState.Modified;
-                db.SaveChanges();
+                cs.Update(comment.IdComment, comment);
+                cs.Commit();
                 return RedirectToAction("Index");
             }
             return View(comment);
@@ -97,7 +98,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comment comment = db.Comments.Find(id);
+            Comment comment = cs.GetById((long)id);
             if (comment == null)
             {
                 return HttpNotFound();
@@ -110,9 +111,9 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Comment comment = db.Comments.Find(id);
-            db.Comments.Remove(comment);
-            db.SaveChanges();
+            Comment comment = cs.GetById((long)id);
+            cs.Delete(comment);
+            cs.Commit();
             return RedirectToAction("Index");
         }
 
@@ -120,7 +121,7 @@ namespace Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                
             }
             base.Dispose(disposing);
         }

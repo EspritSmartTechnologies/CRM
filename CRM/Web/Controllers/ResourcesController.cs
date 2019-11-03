@@ -7,18 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
+using Services;
 using Web.Models;
 
 namespace Web.Controllers
 {
     public class ResourcesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ResourcesService rs = new ResourcesService();
 
         // GET: Resources
         public ActionResult Index()
         {
-            return View(db.Resources.ToList());
+            return View(rs.GetAll().ToList());
         }
 
         // GET: Resources/Details/5
@@ -28,7 +29,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Resources resources = db.Resources.Find(id);
+            Resources resources = rs.GetById((long)id);
             if (resources == null)
             {
                 return HttpNotFound();
@@ -51,8 +52,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Resources.Add(resources);
-                db.SaveChanges();
+                rs.Add(resources);
+                rs.Commit();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +67,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Resources resources = db.Resources.Find(id);
+            Resources resources = rs.GetById((long)id);
             if (resources == null)
             {
                 return HttpNotFound();
@@ -83,8 +84,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(resources).State = EntityState.Modified;
-                db.SaveChanges();
+                rs.Update(resources.IdResource, resources);
                 return RedirectToAction("Index");
             }
             return View(resources);
@@ -97,7 +97,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Resources resources = db.Resources.Find(id);
+            Resources resources = rs.GetById((long)id);
             if (resources == null)
             {
                 return HttpNotFound();
@@ -110,9 +110,9 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Resources resources = db.Resources.Find(id);
-            db.Resources.Remove(resources);
-            db.SaveChanges();
+            Resources resources = rs.GetById((long)id);
+            rs.Delete(resources);
+            rs.Commit();
             return RedirectToAction("Index");
         }
 
@@ -120,7 +120,7 @@ namespace Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+               
             }
             base.Dispose(disposing);
         }

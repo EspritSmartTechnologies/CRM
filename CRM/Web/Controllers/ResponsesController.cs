@@ -7,116 +7,117 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
-using Web.Models;
 using Services;
+using Web.Models;
 
 namespace Web.Controllers
 {
-    public class ProductController : Controller
+    public class ResponsesController : Controller
     {
-        private ProductService ps = new ProductService();
+        
+        private ResponseService rs = new ResponseService();
 
-        public long IdProduct { get; private set; }
-
-
-        // GET: Product
+        // GET: Responses
         public ActionResult Index()
         {
-            return View(ps.GetAll().ToList());
+            return View(rs.GetAll().ToList());
         }
 
-        // GET: Product/Details/5
+        // GET: Responses/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductService product = ps.GetById(id);
-            if (product == null)
+            
+            Response response = rs.GetById((long)id);
+
+            if (response == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(response);
         }
 
-        // GET: Product/Create
+        // GET: Responses/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Product/Create
+        // POST: Responses/Create
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProduct,Colour,Quantity,Price")] Product product)
+        public ActionResult Create([Bind(Include = "IdResponse,ResponseDate,Content")] Response response)
         {
             if (ModelState.IsValid)
             {
-                ps.Add(product);
-                ps.Commit();
+             
+                rs.Add(response);
+                rs.Commit();
                 return RedirectToAction("Index");
             }
 
-            return View(product);
+            return View(response);
         }
 
-        // GET: Product/Edit/5
+        // GET: Responses/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductService product = ps.GetById(id);
-            if (product == null)
+            Response response = rs.GetById((long)id);
+            if (response == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(response);
         }
 
-        // POST: Product/Edit/5
+        // POST: Responses/Edit/5
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProduct,Colour,Quantity,Price")] Product product)
+        public ActionResult Edit([Bind(Include = "IdResponse,ResponseDate,Content")] Response response)
         {
             if (ModelState.IsValid)
             {
-                ps.Update(product.IdProduct, product);
-                ps.Commit();
+                rs.Update(response.IdResponse, response);
+                rs.Commit();
                 return RedirectToAction("Index");
             }
-            return View(product);
+            return View(response);
         }
 
-        // GET: Product/Delete/5
+        // GET: Responses/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductService product = ps.GetById(id);
-            if (product == null)
+            Response response = rs.GetById((long)id);
+            if (response == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(response);
         }
 
-        // POST: Product/Delete/5
+        // POST: Responses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ProductService product = ps.GetById(id);
-            ps.Delete(product);
-            ps.Commit();
+            Response response = rs.GetById((long)id);
+            rs.Delete(response);
+            rs.Commit();
             return RedirectToAction("Index");
         }
 
@@ -124,7 +125,7 @@ namespace Web.Controllers
         {
             if (disposing)
             {
-                
+            
             }
             base.Dispose(disposing);
         }

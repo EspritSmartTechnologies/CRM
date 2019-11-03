@@ -7,18 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
+using Services;
 using Web.Models;
 
 namespace Web.Controllers
 {
     public class ReactsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ReactService rs= new ReactService();
 
         // GET: Reacts
         public ActionResult Index()
         {
-            return View(db.Reacts.ToList());
+            return View(rs.GetAll());
         }
 
         // GET: Reacts/Details/5
@@ -28,7 +29,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            React react = db.Reacts.Find(id);
+            React react = rs.GetById((long)id);
             if (react == null)
             {
                 return HttpNotFound();
@@ -51,8 +52,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Reacts.Add(react);
-                db.SaveChanges();
+                rs.Add(react);
+                rs.Commit();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +67,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            React react = db.Reacts.Find(id);
+            React react = rs.GetById((long)id);
             if (react == null)
             {
                 return HttpNotFound();
@@ -83,8 +84,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(react).State = EntityState.Modified;
-                db.SaveChanges();
+                rs.Update(react.IdReact, react);
                 return RedirectToAction("Index");
             }
             return View(react);
@@ -97,7 +97,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            React react = db.Reacts.Find(id);
+            React react = rs.GetById((long)id);
             if (react == null)
             {
                 return HttpNotFound();
@@ -110,9 +110,9 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            React react = db.Reacts.Find(id);
-            db.Reacts.Remove(react);
-            db.SaveChanges();
+            React react = rs.GetById((long)id);
+            rs.Delete(react);
+            rs.Commit();
             return RedirectToAction("Index");
         }
 
@@ -120,7 +120,7 @@ namespace Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+               
             }
             base.Dispose(disposing);
         }

@@ -51,9 +51,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentService.cs" />
+    <Compile Include="ISatisfactionService.cs" />
+    <Compile Include="SatisfactionService.cs" />
+    <Compile Include="IResponseService.cs" />
+    <Compile Include="ResponseService.cs" />
+    <Compile Include="ClaimsService.cs" />
     <Compile Include="CategoryService.cs" />
     <Compile Include="CommentService.cs" />
     <Compile Include="IAgentService.cs" />
+    <Compile Include="IClaimsService.cs" />
     <Compile Include="ICategoryService.cs" />
     <Compile Include="ICommentService.cs" />
     <Compile Include="IPointofprospectionService.cs" />
