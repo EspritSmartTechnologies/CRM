@@ -9,7 +9,7 @@ using Service.Pattern;
 
 namespace Services
 {
-    class ReactService : Service<React>, IReactService
+    public class ReactService : Service<React>, IReactService
     {
         static IDatabaseFactory factory = new DatabaseFactory();
         static IUnitOfWork utk = new UnitOfWork(factory);

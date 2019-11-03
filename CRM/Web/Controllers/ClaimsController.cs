@@ -7,116 +7,113 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
-using Web.Models;
 using Services;
+using Web.Models;
 
 namespace Web.Controllers
 {
-    public class ProductController : Controller
+    public class ClaimsController : Controller
     {
-        private ProductService ps = new ProductService();
+        private ClaimsService cs = new ClaimsService();
 
-        public long IdProduct { get; private set; }
-
-
-        // GET: Product
+        // GET: Claims
         public ActionResult Index()
         {
-            return View(ps.GetAll().ToList());
+            return View(cs.GetAll().ToList());
         }
 
-        // GET: Product/Details/5
+        // GET: Claims/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductService product = ps.GetById(id);
-            if (product == null)
+            Claim claim = cs.GetById((long)id);
+            if (claim == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(claim);
         }
 
-        // GET: Product/Create
+        // GET: Claims/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Product/Create
+        // POST: Claims/Create
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProduct,Colour,Quantity,Price")] Product product)
+        public ActionResult Create([Bind(Include = "IdClaim,Type,State,Date,Content")] Claim claim)
         {
             if (ModelState.IsValid)
             {
-                ps.Add(product);
-                ps.Commit();
+                cs.Add(claim);
+                cs.Commit();
                 return RedirectToAction("Index");
             }
 
-            return View(product);
+            return View(claim);
         }
 
-        // GET: Product/Edit/5
+        // GET: Claims/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductService product = ps.GetById(id);
-            if (product == null)
+            Claim claim = cs.GetById((long)id); 
+            if (claim == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(claim);
         }
 
-        // POST: Product/Edit/5
+        // POST: Claims/Edit/5
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProduct,Colour,Quantity,Price")] Product product)
+        public ActionResult Edit([Bind(Include = "IdClaim,Type,State,Date,Content")] Claim claim)
         {
             if (ModelState.IsValid)
             {
-                ps.Update(product.IdProduct, product);
-                ps.Commit();
+                cs.Update(claim.IdClaim, claim);
+                cs.Commit();
                 return RedirectToAction("Index");
             }
-            return View(product);
+            return View(claim);
         }
 
-        // GET: Product/Delete/5
+        // GET: Claims/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductService product = ps.GetById(id);
-            if (product == null)
+            Claim claim = cs.GetById((long)id);
+            if (claim == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(claim);
         }
 
-        // POST: Product/Delete/5
+        // POST: Claims/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ProductService product = ps.GetById(id);
-            ps.Delete(product);
-            ps.Commit();
+            Claim claim = cs.GetById((long)id);
+            cs.Delete(claim);
+            cs.Commit();
             return RedirectToAction("Index");
         }
 
