@@ -23,23 +23,31 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Adress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdPointOfSale }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdPointOfSale }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdPointOfSale })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdPointOfSale }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdPointOfSale }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdPointOfSale })
+            </td>
+        </tr>
+    }
 
 </table>
+<p>
+    @Html.ActionLink("Consulter les produits", "../Product/Index")
+</p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p>
+    @Html.ActionLink("Consulter les ressources", "../Resources/Index")
+</p>

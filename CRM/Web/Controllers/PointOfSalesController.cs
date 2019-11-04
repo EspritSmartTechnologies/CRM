@@ -87,7 +87,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                ps.Update(pointOfSale);
+                ps.Update(pointOfSale.IdPointOfSale,pointOfSale);
                 ps.Commit();
                 return RedirectToAction("Index");
             }
