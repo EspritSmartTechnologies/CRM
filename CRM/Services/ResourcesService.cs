@@ -9,7 +9,7 @@ using Service.Pattern;
 
 namespace Services
 {
-    class ResourcesService : Service<Resources>, IResourcesService
+   public class ResourcesService : Service<Resources>, IResourcesService
     {
         static IDatabaseFactory factory = new DatabaseFactory();
         static IUnitOfWork utk = new UnitOfWork(factory);

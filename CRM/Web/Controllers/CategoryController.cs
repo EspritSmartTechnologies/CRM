@@ -7,20 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
-using Web.Models;
 using Services;
+using Web.Models;
 
 namespace Web.Controllers
 {
     public class CategoryController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-        private CategoryService ps = new CategoryService();
+        private CategoryService cs = new CategoryService();
 
         // GET: Category
         public ActionResult Index()
         {
-            return View(ps.GetAll().ToList());
+            return View(cs.GetAll().ToList());
         }
 
         // GET: Category/Details/5
@@ -30,7 +29,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = ps.GetById((long)id);
+            Category category = cs.GetById((long)id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -53,8 +52,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                ps.Add(category); 
-                ps.Commit();
+                cs.Add(category);
+                cs.Commit();
                 return RedirectToAction("Index");
             }
 
@@ -68,7 +67,8 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            Category category = cs.GetById((long)id);
+
             if (category == null)
             {
                 return HttpNotFound();
@@ -85,8 +85,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
+                cs.Update(category.IdProduct, category);
+                cs.Commit();
                 return RedirectToAction("Index");
             }
             return View(category);
@@ -99,7 +99,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category= ps.GetById((long)id);
+            Category category = cs.GetById((long)id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -112,9 +112,9 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
+            Category category = cs.GetById((long)id);
+            cs.Delete(category);
+            cs.Commit();
             return RedirectToAction("Index");
         }
 
@@ -122,7 +122,7 @@ namespace Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+            
             }
             base.Dispose(disposing);
         }

@@ -45,5 +45,11 @@ namespace Web.Models
         public System.Data.Entity.DbSet<Domain.Entities.React> Reacts { get; set; }
 
         public System.Data.Entity.DbSet<Domain.Entities.Resources> Resources { get; set; }
+
+        public System.Data.Entity.DbSet<Domain.Entities.Claim> Claims { get; set; }
+
+        public System.Data.Entity.DbSet<Domain.Entities.Response> Responses { get; set; }
+
+        public System.Data.Entity.DbSet<Domain.Entities.Satisfaction> Satisfactions { get; set; }
     }
 }

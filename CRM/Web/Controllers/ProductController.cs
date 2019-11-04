@@ -14,14 +14,15 @@ namespace Web.Controllers
 {
     public class ProductController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-        ProductService service = new ProductService();
+        private ProductService ps = new ProductService();
+
+        public long IdProduct { get; private set; }
+
 
         // GET: Product
         public ActionResult Index()
         {
-           
-            return View(service.GetAll().ToList());
+            return View(ps.GetAll().ToList());
         }
 
         // GET: Product/Details/5
@@ -31,7 +32,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = service.GetById((long)id);
+            ProductService product = ps.GetById(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -59,8 +60,8 @@ namespace Web.Controllers
             product.Category = cs.GetById(Convert.ToInt32(product.IdCategory));
             if (ModelState.IsValid)
             {
-                service.Add(product);
-                service.Commit();
+                ps.Add(product);
+                ps.Commit();
                 return RedirectToAction("Index");
             }
 
@@ -74,7 +75,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = service.GetById((long)id);
+            ProductService product = ps.GetById(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -91,8 +92,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                service.Update(product.IdProduct,product);
-                service.Commit();
+                ps.Update(product.IdProduct, product);
+                ps.Commit();
                 return RedirectToAction("Index");
             }
             return View(product);
@@ -105,7 +106,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = service.GetById((long)id);
+            ProductService product = ps.GetById(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -118,9 +119,9 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = service.GetById((long)id);
-            service.Delete(product);
-            service.Commit();
+            ProductService product = ps.GetById(id);
+            ps.Delete(product);
+            ps.Commit();
             return RedirectToAction("Index");
         }
 
@@ -128,7 +129,7 @@ namespace Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                
             }
             base.Dispose(disposing);
         }

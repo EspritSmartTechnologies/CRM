@@ -14,7 +14,6 @@ namespace Web.Controllers
 {
     public class PointOfSalesController : Controller
     {
-       // private ApplicationDbContext db = new ApplicationDbContext();
         private PointofsaleService ps = new PointofsaleService();
 
         // GET: PointOfSales
@@ -30,7 +29,6 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
             PointOfSale pointOfSale = ps.GetById((long)id);
             if (pointOfSale == null)
             {
@@ -69,7 +67,6 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
             PointOfSale pointOfSale = ps.GetById((long)id);
             if (pointOfSale == null)
             {
@@ -87,7 +84,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                ps.Update(pointOfSale.IdPointOfSale,pointOfSale);
+                ps.Update(pointOfSale.IdPointOfSale, pointOfSale);
                 ps.Commit();
                 return RedirectToAction("Index");
             }
@@ -101,7 +98,6 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           
             PointOfSale pointOfSale = ps.GetById((long)id);
             if (pointOfSale == null)
             {
@@ -115,8 +111,8 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PointOfSale pointofsale = ps.GetById((long)id);
-            ps.Delete(pointofsale);
+            PointOfSale pointOfSale = ps.GetById((long)id);
+            ps.Delete(pointOfSale);
             ps.Commit();
             return RedirectToAction("Index");
         }
@@ -125,7 +121,7 @@ namespace Web.Controllers
         {
             if (disposing)
             {
-                
+               
             }
             base.Dispose(disposing);
         }

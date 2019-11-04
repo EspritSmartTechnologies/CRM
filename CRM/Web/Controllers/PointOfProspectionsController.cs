@@ -7,18 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
+using Services;
 using Web.Models;
 
 namespace Web.Controllers
 {
     public class PointOfProspectionsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private PointofprospectionService ps = new PointofprospectionService();
 
         // GET: PointOfProspections
         public ActionResult Index()
         {
-            return View(db.PointOfProspections.ToList());
+            return View(ps.GetAll().ToList());
         }
 
         // GET: PointOfProspections/Details/5
@@ -28,7 +29,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PointOfProspection pointOfProspection = db.PointOfProspections.Find(id);
+            PointOfProspection pointOfProspection = ps.GetById((long)id);
             if (pointOfProspection == null)
             {
                 return HttpNotFound();
@@ -51,8 +52,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.PointOfProspections.Add(pointOfProspection);
-                db.SaveChanges();
+                ps.Add(pointOfProspection);
+                ps.Commit();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +67,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PointOfProspection pointOfProspection = db.PointOfProspections.Find(id);
+            PointOfProspection pointOfProspection = ps.GetById((long)id);
             if (pointOfProspection == null)
             {
                 return HttpNotFound();
@@ -83,8 +84,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(pointOfProspection).State = EntityState.Modified;
-                db.SaveChanges();
+                ps.Update(pointOfProspection.IdPointOfProspection, pointOfProspection);
+                ps.Commit();
                 return RedirectToAction("Index");
             }
             return View(pointOfProspection);
@@ -97,7 +98,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PointOfProspection pointOfProspection = db.PointOfProspections.Find(id);
+            PointOfProspection pointOfProspection = ps.GetById((long)id);
             if (pointOfProspection == null)
             {
                 return HttpNotFound();
@@ -110,9 +111,9 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PointOfProspection pointOfProspection = db.PointOfProspections.Find(id);
-            db.PointOfProspections.Remove(pointOfProspection);
-            db.SaveChanges();
+            PointOfProspection pointOfProspection = ps.GetById((long)id);
+            ps.Delete(pointOfProspection);
+            ps.Commit();
             return RedirectToAction("Index");
         }
 
@@ -120,7 +121,7 @@ namespace Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                
             }
             base.Dispose(disposing);
         }
