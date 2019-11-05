@@ -40,6 +40,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0-preview1-19506-01\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -63,12 +69,19 @@
     <Compile Include="Migrations\201910281504483_mlm.designer.cs">
       <DependentUpon>201910281504483_mlm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911042045190_user.cs" />
+    <Compile Include="Migrations\201911042045190_user.designer.cs">
+      <DependentUpon>201911042045190_user.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911042237026_user2.cs" />
+    <Compile Include="Migrations\201911042237026_user2.designer.cs">
+      <DependentUpon>201911042237026_user2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Infrastructure\desktop.ini" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +98,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201910281504483_mlm.resx">
       <DependentUpon>201910281504483_mlm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911042045190_user.resx">
+      <DependentUpon>201911042045190_user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911042237026_user2.resx">
+      <DependentUpon>201911042237026_user2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

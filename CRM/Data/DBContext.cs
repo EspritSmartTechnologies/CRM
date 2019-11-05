@@ -5,14 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using Domain.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Domain;
 
 namespace Data
 {
-    public class DBContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public ApplicationDbContext()
+            : base("DBContext")
+        {
+        }
+
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }
+    }
+
+    public class DBContext : ApplicationDbContext
 
     {
 
-        public DBContext():base("MyContext")
+        public DBContext()
         {
 
         }
