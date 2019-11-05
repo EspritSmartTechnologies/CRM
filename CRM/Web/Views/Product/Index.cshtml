@@ -4,15 +4,17 @@
     ViewBag.Title = "Index";
 }
 
+
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Colour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Cat)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Quantity)
@@ -20,26 +22,135 @@
         <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PointOfSale.IdPointOfSale)
+        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Colour)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdProduct }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdProduct }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdProduct })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Colour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Cat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PointOfSale.IdPointOfSale)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdProduct }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdProduct }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdProduct })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<br />
+<p>
+    @Html.ActionLink("Ajouter un nouveau produit", "Create")
+</p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p>
+    @Html.ActionLink("Consulter les points de ventes", "../PointOfSales/Index")
+</p>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<!-- small box -->
+</div>
+<div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-danger">
+        <div class="inner">
+            <h3>@Model.Sum(i => i.Quantity)</h3>
+            <p>Produits en stocks</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+        </div>
+        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+</div>
+<div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-warning">
+        <div class="inner">
+            <p>le produit dont l'ID</p>
+            <h3>
+                @foreach (var v in Model)
+                    {if (v.Quantity<=2)
+                        { <text>   @v.IdProduct </text> } }
+                
+            </h3>
+            <p>est en rupture de stock</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-person-add"></i>
+        </div>
+        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+      $(document).ready(function () { 
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json", 
+                url: '@Url.Action("VisualizeStudentResult", "VisualizeData")',
+                success: function (result) {
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(function () {
+                        drawChart(result);
+                    });
+                }
+            });
+        });
+    function drawChart(result) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Subject');
+        data.addColumn('number', 'Marks Obtained');
+        var dataArray = [];
+
+        $.each(result, function (i, obj) {
+            dataArray.push([obj.subjectName, obj.obtainedMarks]);
+        });
+        data.addRows(dataArray);
+
+        var columnChartOptions = {
+            title: "Student's Performance",
+            width: 1000,
+            height: 400,
+            bar: { groupWidth: "20%" },
+        };
+
+        var columnChart = new google.visualization.ColumnChart(document
+            .getElementById('columnchart_div'));
+
+        columnChart.draw(data, columnChartOptions);
+    }
+</script>
+
+
+
+
+
+
+

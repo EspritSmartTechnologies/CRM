@@ -10,7 +10,7 @@ namespace Domain.Entities
     public class Category
     {
         [Key]
-        public int IdProduct { get; set; }
-        public string Label { get; set; }
+        public int IdCategory { get; set; }
+        public string Cat { get; set; }
     }
 }

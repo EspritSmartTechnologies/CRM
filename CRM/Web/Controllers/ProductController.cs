@@ -43,16 +43,21 @@ namespace Web.Controllers
         // GET: Product/Create
         public ActionResult Create()
         {
-            return View();
+            CategoryService cs = new CategoryService();
+            ViewBag.cats = cs.GetAll();
+            return View(); 
         }
+
 
         // POST: Product/Create
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProduct,Colour,Quantity,Price")] Product product)
+        public ActionResult Create([Bind(Include = "IdProduct,Colour,Quantity,Category,Price,PointOfSale,IdCategory")] Product product)
         {
+            CategoryService cs = new CategoryService();
+            product.Category = cs.GetById(Convert.ToInt32(product.IdCategory));
             if (ModelState.IsValid)
             {
                 ps.Add(product);
@@ -83,7 +88,7 @@ namespace Web.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProduct,Colour,Quantity,Price")] Product product)
+        public ActionResult Edit([Bind(Include = "IdProduct,Colour,Quantity,Category,Price,PointOfSale")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -128,5 +133,49 @@ namespace Web.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+        public ActionResult ColumnChart()
+        {
+            return View();
+        }
+
+        /*
+        public ActionResult ExamPerformanceChart(string Produit, string month2)
+        {
+            int marks = 0;
+            DbContext ams = new DbContext("MyContext");
+            DateTime month2Value = Convert.ToDateTime(month2);
+            var getResults = (from d in ams.Products
+                            
+                              where d.GetIdProduct == Produit && d.Date.Value.Month == month2Value.Month
+                && d.Date.Value.Year == month2Value.Year
+                              select d).ToList();
+            List<Product> result = new List<Product>();
+            foreach (var item in getResults)
+            {
+                if (item.MarksObtained == "A")
+                {
+                    marks = 0;
+                }
+                else if (item.MarksObtained != "A")
+                {
+                    marks = Convert.ToInt32(item.MarksObtained);
+                }
+                result.Add(new StudentResult()
+                {
+                    //examDate = item.Date.Value.Date,
+                    obtainedMarks = marks,
+                    score = Convert.ToInt32(item.Score),
+                    subjectName = item.SubjectName
+                });
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }*/
     }
+
+    
+
+
 }

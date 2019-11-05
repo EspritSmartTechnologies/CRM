@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class mlm : DbMigration
+    public partial class nn : DbMigration
     {
         public override void Up()
         {
@@ -62,10 +62,10 @@
                 "dbo.Categories",
                 c => new
                     {
-                        IdProduct = c.Int(nullable: false, identity: true),
-                        Label = c.String(),
+                        IdCategory = c.Int(nullable: false, identity: true),
+                        Cat = c.String(),
                     })
-                .PrimaryKey(t => t.IdProduct);
+                .PrimaryKey(t => t.IdCategory);
             
             CreateTable(
                 "dbo.Claims",
@@ -200,13 +200,13 @@
                         Colour = c.String(),
                         Quantity = c.Int(nullable: false),
                         Price = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Category_IdProduct = c.Int(),
+                        Category_IdCategory = c.Int(),
                         PointOfSale_IdPointOfSale = c.Int(),
                     })
                 .PrimaryKey(t => t.IdProduct)
-                .ForeignKey("dbo.Categories", t => t.Category_IdProduct)
+                .ForeignKey("dbo.Categories", t => t.Category_IdCategory)
                 .ForeignKey("dbo.PointOfSales", t => t.PointOfSale_IdPointOfSale)
-                .Index(t => t.Category_IdProduct)
+                .Index(t => t.Category_IdCategory)
                 .Index(t => t.PointOfSale_IdPointOfSale);
             
             CreateTable(
@@ -231,7 +231,7 @@
             DropForeignKey("dbo.Satisfactions", "User_IdUser", "dbo.Users");
             DropForeignKey("dbo.Satisfactions", "Claim_IdClaim", "dbo.Claims");
             DropForeignKey("dbo.Products", "PointOfSale_IdPointOfSale", "dbo.PointOfSales");
-            DropForeignKey("dbo.Products", "Category_IdProduct", "dbo.Categories");
+            DropForeignKey("dbo.Products", "Category_IdCategory", "dbo.Categories");
             DropForeignKey("dbo.Invoices", "IdInvoice", "dbo.Payments");
             DropForeignKey("dbo.Quotes", "IdQuote", "dbo.Payments");
             DropForeignKey("dbo.Comments", "User_IdUser", "dbo.Users");
@@ -251,7 +251,7 @@
             DropIndex("dbo.Satisfactions", new[] { "User_IdUser" });
             DropIndex("dbo.Satisfactions", new[] { "Claim_IdClaim" });
             DropIndex("dbo.Products", new[] { "PointOfSale_IdPointOfSale" });
-            DropIndex("dbo.Products", new[] { "Category_IdProduct" });
+            DropIndex("dbo.Products", new[] { "Category_IdCategory" });
             DropIndex("dbo.Quotes", new[] { "IdQuote" });
             DropIndex("dbo.Invoices", new[] { "IdInvoice" });
             DropIndex("dbo.Reacts", new[] { "User_IdUser" });
