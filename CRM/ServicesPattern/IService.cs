@@ -11,6 +11,7 @@ namespace Service.Pattern
     {
         void Add(T entity);
         void Update(int id,T entity);
+        void Update(T entity);
         void Delete(T entity);
         void Delete(Expression<Func<T, bool>> where);
         T GetById(long id);

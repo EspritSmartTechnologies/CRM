@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Domain.Entities.Periode>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.date_deb)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_fin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.saison)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_deb, "{0:d MMM yyyy}")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_fin, "{0:d MMM yyyy}")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.saison)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

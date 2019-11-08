@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using Domain.Entities;
+using Data.Configurations;
 
 namespace Data
 {
@@ -34,6 +35,28 @@ namespace Data
         DbSet<Category> Categories { get; set; }
         DbSet<Product> Products { get; set; }
         DbSet<Satisfaction> Satisfactions { get; set; }
+
+        //promotion
+        public DbSet<Client> clients { get; set; }
+        public DbSet<Periode> Periodes { get; set; }
+        public DbSet<Promotion> Promotions { get; set; }
+        public DbSet<ZoneGeographique> Zones { get; set; }
+        public DbSet<Client_Promotion> clients_promotions { get; set; }
+
+       
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+        
+            modelBuilder.Configurations.Add(new ClientConfig());
+            modelBuilder.Configurations.Add(new Promo_ClientPromoConfig());
+
+           
+
+        }
+
+
+
     }
 
 }

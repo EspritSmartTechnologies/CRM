@@ -20,6 +20,7 @@ namespace Data.Infrastructure
         IEnumerable<T> GetMany(Expression<Func<T, bool>> where = null, Expression<Func<T, bool>> orderBy = null);
 
         void Update(int id,T entity);
+        void Update( T entity);
         IEnumerable<T> GetAll();
 
 

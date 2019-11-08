@@ -1,22 +1,18 @@
 ﻿
+
 using Data.Infrastructure;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-
 
 
 namespace Service.Pattern
 {
-    public abstract class Service<T> : IService<T> where T : class
+    public class Service<T> : IService<T> where T : class
     {
+         IUnitOfWork utwk;
 
-        IUnitOfWork utwk;
-
-        protected Service(IUnitOfWork utwk)
+        public Service(IUnitOfWork utwk)
         {
             this.utwk = utwk;
         }
@@ -36,6 +32,11 @@ namespace Service.Pattern
             utwk.getRepository<T>().Update(id,entity);
         }
 
+        public void Update(T Entity)
+        {
+            utwk.getRepository<T>().Update(Entity);
+
+        }
         public void Delete(T entity)
         {
             //   _repository.Delete(entity);
@@ -89,7 +90,6 @@ namespace Service.Pattern
             utwk.Dispose();
         }
 
-
-
+     
     }
 }

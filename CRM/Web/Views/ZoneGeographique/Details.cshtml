@@ -1,0 +1,42 @@
+﻿@model Domain.Entities.ZoneGeographique
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ZoneGeographique</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.pays)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pays)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gouvernorat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gouvernorat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ville)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ville)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
