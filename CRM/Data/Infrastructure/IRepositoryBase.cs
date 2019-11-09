@@ -22,6 +22,8 @@ namespace Data.Infrastructure
         void Update(int id,T entity);
         IEnumerable<T> GetAll();
 
+        List<T> GetInclude(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, params Expression<Func<T, object>>[] includes);
+
 
     }
 }

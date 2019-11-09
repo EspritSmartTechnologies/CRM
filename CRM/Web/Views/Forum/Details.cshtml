@@ -1,0 +1,180 @@
+﻿@model Domain.Entities.Post
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutFront.cshtml";
+}
+<section id="subintro">
+
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <h3>Post <strong>left sidebar</strong></h3>
+            </div>
+            <div class="span8">
+                <ul class="breadcrumb notop">
+                    <li><a href="#">Home</a><span class="divider">/</span></li>
+                    <li class="active">Post left sidebar</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<section id="maincontent">
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <aside>
+                    <div class="widget">
+                        <h4>Search widget</h4>
+                        <form class="form-search">
+                            <input placeholder="Type something" type="text" class="input-medium search-query">
+                            <button type="submit" class="btn btn-flat btn-color">Search</button>
+                        </form>
+                    </div>
+                    <div class="widget">
+
+
+                    </div>
+                    <div class="widget">
+                        <h4>Categories</h4>
+                        <ul class="cat">
+                            <li><a href="#">Web design (114)</a></li>
+                            <li><a href="#">Internet news (15)</a></li>
+                            <li><a href="#">Tutorial and tips (20)</a></li>
+                            <li><a href="#">Design trends (15)</a></li>
+                            <li><a href="#">Online business (10)</a></li>
+                        </ul>
+                    </div>
+                    <div class="widget">
+                        <h4>Recent posts</h4>
+                        <ul class="recent-posts">
+                            <li>
+                                <a href="#"><img src="assets/img/dummies/post-50.jpg" alt=""> Lorem ipsum dolor sit amet munere commodo ut nam</a>
+                                <div class="clear">
+                                </div>
+                                <span class="date"><i class="icon-calendar"></i> 6 June, 2013</span>
+                                <span class="comment"><i class="icon-comment"></i> 4 Comments</span>
+                            </li>
+                            <li>
+                                <a href="#"><img src="assets/img/dummies/post-50.jpg" alt=""> Sea nostrum omittantur ne mea malis nominavi insolens</a>
+                                <div class="clear">
+                                </div>
+                                <span class="date"><i class="icon-calendar"></i> 6 June, 2013</span>
+                                <span class="comment"><i class="icon-comment"></i> 2 Comments</span>
+                            </li>
+                            <li>
+                                <a href="#"><img src="assets/img/dummies/post-50.jpg" alt=""> Eius graece recusabo no pri odio tale quo id, mea at saepe</a>
+                                <div class="clear">
+                                </div>
+                                <span class="date"><i class="icon-calendar"></i> 4 June, 2013</span>
+                                <span class="comment"><i class="icon-comment"></i> 12 Comments</span>
+                            </li>
+                            <li>
+                                <a href="#"><img src="assets/img/dummies/post-50.jpg" alt=""> Malorum deserunt at nec usu ad graeco elaboraret at rebum</a>
+                                <div class="clear">
+                                </div>
+                                <span class="date"><i class="icon-calendar"></i> 3 June, 2013</span>
+                                <span class="comment"><i class="icon-comment"></i> 3 Comments</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget">
+                        <h4>Tags</h4>
+                        <ul class="tags">
+                            <li><a href="#">Tutorial</a></li>
+                            <li><a href="#">Tricks</a></li>
+                            <li><a href="#">Design</a></li>
+                            <li><a href="#">Trends</a></li>
+                            <li><a href="#">Online</a></li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+            <div class="span8">
+                <!-- start article full post -->
+                <article class="blog-post">
+                    <div class="post-heading">
+                        <h3><a href="#">@Html.DisplayNameFor(model => model.Title)</a></h3>
+                    </div>
+                    <div class="clearfix">
+                    </div>
+                    <img src=@Url.Content("/Content/uploads/"+Model.Image) alt="">
+
+                    <div class="row">
+                        <div class="span2">
+                            <div class="post-icon">
+                                <i class="icon-bg-dark icon-circled icon-file icon-3x active"></i>
+                            </div>
+                            <ul class="post-meta">
+                                <li class="first"><i class="icon-calendar"></i><span>@Html.DisplayNameFor(model => model.PostDate)</span></li>
+                                <li><i class="icon-list-alt"></i><span><a href="#">@(Model.Comments != null ? Model.Comments.Count().ToString() : "0") comments</a></span></li>
+                                <li class="last"><i class="icon-tags"></i><span><a href="#">Design</a>, <a href="#">Blog</a>, <a href="#">Tutorial</a></span></li>
+                            </ul>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+
+                        <div class="span6">
+                            <p>
+                                @Html.DisplayNameFor(model => model.Content)
+                            </p>
+
+                        </div>
+
+                    </div>
+                </article>
+
+                <!-- end article full post -->
+                <h4>@(Model.Comments != null ? Model.Comments.Count().ToString() : "0") comments</h4>
+                <ul class="media-list">
+                    @foreach (var itemm in Model.Comments)
+                    {
+                        <li class="media">
+                            <a class="pull-left" href="#">
+                                <img class="img-circle" src=@Url.Content("/Content/Plato/assets/img/small-avatar.png") alt="">
+                            </a>
+                            <div class="media-body">
+                                <h5 class="media-heading"><a href="#">@itemm.User.UserName</a></h5>
+                                <span>3 June, 2013</span>
+                                <p>
+                                    @itemm.Content
+                                </p>
+                                @*<a href="#" class="btn btn-color btn-rounded">Reply</a>*@
+
+                            </div>
+                        </li>
+                    }
+                    </ul>
+                <div class="comment-post">
+                    <h4>Leave a comment</h4>
+                    <form action="" method="post" class="comment-form" name="comment-form">
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <input type="hidden" name="id" value="@Model.IdPost" />
+                            <div class="span8">
+                                <label>Comment <span>*</span></label>
+                                <textarea name="content" rows="9" placeholder="Your comment"></textarea>
+                                <button class="btn btn-color btn-rounded" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<h2>Details</h2>
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdPost }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

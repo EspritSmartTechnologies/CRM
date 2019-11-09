@@ -13,7 +13,6 @@ namespace Domain.Entities
         public int IdResource { get; set; }
         public int Quantity { get; set; }
         public string Name { get; set; }
-        public PointOfSale PointOfSale { get; set; }
         public PointOfProspection pointOfProspection { get; set; }
     }
 }

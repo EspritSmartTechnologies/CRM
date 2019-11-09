@@ -57,7 +57,7 @@ namespace Web.Controllers
         public ActionResult Create([Bind(Include = "IdProduct,Colour,Quantity,Category,Price,PointOfSale,IdCategory")] Product product)
         {
             CategoryService cs = new CategoryService();
-            product.Category = cs.GetById(Convert.ToInt32(product.IdCategory));
+            product.Category = cs.GetById(Convert.ToInt32(product.IdProduct));
             if (ModelState.IsValid)
             {
                 ps.Add(product);

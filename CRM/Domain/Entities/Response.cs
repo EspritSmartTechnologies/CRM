@@ -12,7 +12,7 @@ namespace Domain.Entities
         [Key]
         public int IdResponse { get; set; }
         public DateTime ResponseDate { get; set; }
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
         public string Content { get; set; }
     }
 }

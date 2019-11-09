@@ -31,7 +31,7 @@ namespace Domain.Entities
         public State State { get; set; }
         public DateTime Date { get; set; }
         public List<Response> Responses { get; set; }
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
         public string Content { get; set; }
 
     }

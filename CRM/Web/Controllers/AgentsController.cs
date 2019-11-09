@@ -6,115 +6,113 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Data;
 using Domain.Entities;
 using Services;
-using Web.Models;
 
 namespace Web.Controllers
 {
-    public class CategoryController : Controller
+    public class AgentsController : Controller
     {
-        private CategoryService cs = new CategoryService();
+        private AgentService ass = new AgentService();
 
-        // GET: Category
+        // GET: Agents
         public ActionResult Index()
         {
-            return View(cs.GetAll().ToList());
+            return View(ass.GetAll());
         }
 
-        // GET: Category/Details/5
+        // GET: Agents/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = cs.GetById((long)id);
-            if (category == null)
+            Agents agents = ass.GetById((long)id);
+            if (agents == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(agents);
         }
 
-        // GET: Category/Create
+        // GET: Agents/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Category/Create
+        // POST: Agents/Create
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProduct,Label")] Category category)
+        public ActionResult Create([Bind(Include = "IdAgent,FullName")] Agents agents)
         {
             if (ModelState.IsValid)
             {
-                cs.Add(category);
-                cs.Commit();
+                ass.Add(agents);
+                ass.Commit();
                 return RedirectToAction("Index");
             }
 
-            return View(category);
+            return View(agents);
         }
 
-        // GET: Category/Edit/5
+        // GET: Agents/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = cs.GetById((long)id);
-
-            if (category == null)
+            Agents agents = ass.GetById((long)id);
+            if (agents == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(agents);
         }
 
-        // POST: Category/Edit/5
+        // POST: Agents/Edit/5
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProduct,Label")] Category category)
+        public ActionResult Edit([Bind(Include = "IdAgent,FullName")] Agents agents)
         {
             if (ModelState.IsValid)
             {
-                cs.Update(category.IdCategory, category);
-                cs.Commit();
+                ass.Update(agents.IdAgent, agents);
                 return RedirectToAction("Index");
             }
-            return View(category);
+            return View(agents);
         }
 
-        // GET: Category/Delete/5
+        // GET: Agents/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = cs.GetById((long)id);
-            if (category == null)
+            Agents agents = ass.GetById((long)id);
+            if (agents == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(agents);
         }
 
-        // POST: Category/Delete/5
+        // POST: Agents/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = cs.GetById((long)id);
-            cs.Delete(category);
-            cs.Commit();
+            Agents agents = ass.GetById((long)id);
+            ass.Delete(agents);
+            ass.Commit();
             return RedirectToAction("Index");
         }
 
@@ -122,7 +120,7 @@ namespace Web.Controllers
         {
             if (disposing)
             {
-            
+                
             }
             base.Dispose(disposing);
         }

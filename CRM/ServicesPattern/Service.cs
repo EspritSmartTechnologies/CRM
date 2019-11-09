@@ -73,7 +73,10 @@ namespace Service.Pattern
             return utwk.getRepository<T>().Get(where);
         }
 
-
+        public List<T> GetInclude(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, params Expression<Func<T, object>>[] includes)
+        {
+            return utwk.getRepository<T>().GetInclude(filter, orderBy, includes);
+        }
 
         public void Commit()
         {

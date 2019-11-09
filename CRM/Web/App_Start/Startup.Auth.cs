@@ -8,6 +8,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using Domain;
 using Web.Models;
+using Domain.Entities;
 
 namespace Web
 {

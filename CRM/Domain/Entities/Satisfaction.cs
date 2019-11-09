@@ -18,7 +18,7 @@ namespace Domain.Entities
     {
         [Key]
         public int IdSatisfaction { get; set; }
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
         public Level Level { get; set; }
         public Claim Claim { get; set; }
 

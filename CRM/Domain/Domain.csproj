@@ -72,7 +72,6 @@
     <Compile Include="Entities\Resources.cs" />
     <Compile Include="Entities\Response.cs" />
     <Compile Include="Entities\Satisfaction.cs" />
-    <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

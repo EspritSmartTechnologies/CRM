@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\UserConfig.cs" />
+    <Compile Include="Configurations\PostConfig.cs" />
     <Compile Include="DBContext.cs" />
     <Compile Include="Infrastructure\DatabaseFactory.cs" />
     <Compile Include="Infrastructure\Disposable.cs" />
@@ -65,17 +67,13 @@
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\201911031836481_nn.cs" />
-    <Compile Include="Migrations\201911031836481_nn.designer.cs">
-      <DependentUpon>201911031836481_nn.cs</DependentUpon>
+    <Compile Include="Migrations\201911090215191_userrrsConvddd.cs" />
+    <Compile Include="Migrations\201911090215191_userrrsConvddd.designer.cs">
+      <DependentUpon>201911090215191_userrrsConvddd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201911042045190_user.cs" />
-    <Compile Include="Migrations\201911042045190_user.designer.cs">
-      <DependentUpon>201911042045190_user.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911042237026_user2.cs" />
-    <Compile Include="Migrations\201911042237026_user2.designer.cs">
-      <DependentUpon>201911042237026_user2.cs</DependentUpon>
+    <Compile Include="Migrations\201911090220367_comment.cs" />
+    <Compile Include="Migrations\201911090220367_comment.designer.cs">
+      <DependentUpon>201911090220367_comment.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,7 +83,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Configurations\" />
     <Folder Include="Conventions\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
@@ -96,14 +93,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201911031836481_nn.resx">
-      <DependentUpon>201911031836481_nn.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911090215191_userrrsConvddd.resx">
+      <DependentUpon>201911090215191_userrrsConvddd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911042045190_user.resx">
-      <DependentUpon>201911042045190_user.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911042237026_user2.resx">
-      <DependentUpon>201911042237026_user2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911090220367_comment.resx">
+      <DependentUpon>201911090220367_comment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

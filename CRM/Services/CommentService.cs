@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Data.Infrastructure;
 using Service.Pattern;
 using Domain.Entities;
-
+using Data;
 
 namespace Services
 {
@@ -18,5 +18,19 @@ namespace Services
         public CommentService() : base(utk)
         {
         }
+
+        public List<Comment> GetCommentairesByPost(int id)
+        {
+            DBContext context = new DBContext();
+            List<Comment> comments = factory.DataContext.Comments.Where(x => x.Post.IdPost == id).ToList();
+            foreach (var x in comments) {
+
+            }
+            return GetMany(x => x.Post.IdPost == id).ToList();
+        }
+        //private List<Comment>GetChildren(List<Comment> comments, int id)
+        //{
+
+        //}
     }
 }

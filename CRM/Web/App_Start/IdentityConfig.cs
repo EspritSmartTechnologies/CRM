@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Data;
 using Domain;
+using Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;

@@ -16,9 +16,10 @@ namespace Domain.Entities
     {
         [Key]
         public int IdReact { get; set; }
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
+        public string UserId { get; set; }
         public Post Post { get; set; }
-        public Comment Comments { get; set; }
+        public Comment Comment { get; set; }
         public ReactType Type { get; set; }
     }
 }

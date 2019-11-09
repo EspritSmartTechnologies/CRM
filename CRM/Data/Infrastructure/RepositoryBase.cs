@@ -60,7 +60,16 @@ namespace Data.Infrastructure
         {
             return dbset.ToList();
         }
+        public virtual IEnumerable<T> GetAll(params Expression<Func<T, object>>[] properties)
+        {
+            
+            var query = dbset as IQueryable<T>; // _dbSet = dbContext.Set<TEntity>()
 
+            query = properties
+                       .Aggregate(query, (current, property) => current.Include(property));
+
+            return query.ToList(); 
+        }
         public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where = null, Expression<Func<T, bool>> orderBy = null)
         {
             IQueryable<T> Query = dbset;
@@ -77,6 +86,21 @@ namespace Data.Infrastructure
         public T Get(Expression<Func<T, bool>> where)
         {
             return dbset.Where(where).FirstOrDefault<T>();
+        }
+        public virtual List<T> GetInclude(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = dbset;
+
+            foreach (Expression<Func<T, object>> include in includes)
+                query = query.Include(include);
+
+            if (filter != null)
+                query = query.Where(filter);
+
+            if (orderBy != null)
+                query = orderBy(query);
+
+            return query.ToList();
         }
 
 

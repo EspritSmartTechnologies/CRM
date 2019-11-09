@@ -1,0 +1,145 @@
+﻿@model IEnumerable<Domain.Entities.Post>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutFront.cshtml";
+}
+
+<section id="subintro">
+
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <h3>Blog <strong>left sidebar</strong></h3>
+            </div>
+            <div class="span8">
+                <ul class="breadcrumb notop">
+                    <li><a href="#">Home</a><span class="divider">/</span></li>
+                    <li class="active">Blog left sidebar</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<section id="maincontent">
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <aside>
+                    <center>@Html.ActionLink("Create New", "Create", new { id = 1 }, new { @class = "btn btn-color btn-rounded" })</center>
+                    <br /> 
+                    <div class="widget">
+                        <h4>Search widget</h4>
+                        <form class="form-search">
+                            <input placeholder="Type something" type="text" class="input-medium search-query">
+                            <button type="submit" class="btn btn-flat btn-color">Search</button>
+                        </form>
+                    </div>
+                    <div class="widget">
+                        <h4>Video widget</h4>
+                        <div class="video-container">
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <h4>Categories</h4>
+                        <ul class="cat">
+                            <li><a href="#">Web design (114)</a></li>
+                            <li><a href="#">Internet news (15)</a></li>
+                            <li><a href="#">Tutorial and tips (20)</a></li>
+                            <li><a href="#">Design trends (15)</a></li>
+                            <li><a href="#">Online business (10)</a></li>
+                        </ul>
+                    </div>
+                    <div class="widget">
+                        <h4>Recent posts</h4>
+                        <ul class="recent-posts">
+                            <li>
+                                <a href="#"><img src="assets/img/dummies/post-50.jpg" alt=""> Lorem ipsum dolor sit amet munere commodo ut nam</a>
+                                <div class="clear">
+                                </div>
+                                <span class="date"><i class="icon-calendar"></i> 6 March, 2013</span>
+                                <span class="comment"><i class="icon-comment"></i> 4 Comments</span>
+                            </li>
+                            <li>
+                                <a href="#"><img src="assets/img/dummies/post-50.jpg" alt=""> Sea nostrum omittantur ne mea malis nominavi insolens</a>
+                                <div class="clear">
+                                </div>
+                                <span class="date"><i class="icon-calendar"></i> 6 March, 2013</span>
+                                <span class="comment"><i class="icon-comment"></i> 2 Comments</span>
+                            </li>
+                            <li>
+                                <a href="#"><img src="assets/img/dummies/post-50.jpg" alt=""> Eius graece recusabo no pri odio tale quo id, mea at saepe</a>
+                                <div class="clear">
+                                </div>
+                                <span class="date"><i class="icon-calendar"></i> 4 March, 2013</span>
+                                <span class="comment"><i class="icon-comment"></i> 12 Comments</span>
+                            </li>
+                            <li>
+                                <a href="#"><img src="assets/img/dummies/post-50.jpg" alt=""> Malorum deserunt at nec usu ad graeco elaboraret at rebum</a>
+                                <div class="clear">
+                                </div>
+                                <span class="date"><i class="icon-calendar"></i> 3 March, 2013</span>
+                                <span class="comment"><i class="icon-comment"></i> 3 Comments</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget">
+                        <h4>Tags</h4>
+                        <ul class="tags">
+                            <li><a href="#">Tutorial</a></li>
+                            <li><a href="#">Tricks</a></li>
+                            <li><a href="#">Design</a></li>
+                            <li><a href="#">Trends</a></li>
+                            <li><a href="#">Online</a></li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+            <div class="span8">
+                @foreach (var item in Model)
+                {
+                    <article class="blog-post">
+                        <div class="post-image">
+                            <a href="#"><img src=@Url.Content("/Content/uploads/"+item.Image) alt=""></a>
+                        </div>
+                        <div class="post-heading">
+                            <h3><a href="#">@Html.DisplayFor(modelItem => item.Title)</a></h3>
+                        </div>
+                        <div class="row">
+                            <div class="span3">
+                                <div class="post-icon">
+                                    <i class="icon-bg-dark icon-circled icon-file icon-3x active"></i>
+                                </div>
+                                <ul class="post-meta">
+                                    <li class="first"><i class="icon-calendar"></i><span>@Html.DisplayFor(modelItem => item.PostDate)</span></li>
+                                    <li><i class="icon-list-alt"></i><span><a href="#">@(item.Comments != null ? "@item.Comments.Count()" : "0") comments</a></span></li>
+                                    <li class="last"><i class="icon-tags"></i><span><a href="#">Design</a>, <a href="#">Blog</a>, <a href="#">Tutorial</a></span></li>
+                                </ul>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="span5">
+                                <p>
+                                    @Html.DisplayFor(modelItem => item.User.Email)
+                                    @Html.DisplayFor(modelItem => item.Content)
+                                </p>
+                                <a href="#" class="btn btn-color btn-rounded">Read more</a>
+                                @Html.ActionLink("Details", "Details", new { id = item.IdPost })
+                            </div>
+                        </div>
+                    </article>
+                    <!-- end article 1 -->
+                }
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<p>
+    
+</p>
+
