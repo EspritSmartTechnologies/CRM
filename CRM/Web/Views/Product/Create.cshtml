@@ -41,8 +41,11 @@
         <div class="col-md-10">
             @{ IEnumerable<Domain.Entities.Category> categories = ViewBag.cats;}
             @Html.DropDownListFor(m=>m.IdCategory,categories.Select(c=>new SelectListItem { Value = c.IdCategory.ToString(), Text = c.Cat }))
-    @*@Html.EditorFor(model => model.Category.Cat, new { htmlAttributes = new { @class = "form-control" } })*@
-            @Html.ValidationMessageFor(model => model.Category.Cat, "", new { @class = "text-danger" })
+   
+    @Html.EditorFor(model => model.Category.Cat, new { htmlAttributes = new { @class = "form-control" } })*@
+ 
+           
+@Html.ValidationMessageFor(model => model.Category.Cat, "", new { @class = "text-danger" })
         </div>
     </div>
 

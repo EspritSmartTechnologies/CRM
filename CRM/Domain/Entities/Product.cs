@@ -20,5 +20,12 @@ namespace Domain.Entities
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public PointOfSale PointOfSale { get; set; }
+
+        //foreign key
+
+        public string nom { get; set; }
+        public int promo_Id { get; set; }
+        [ForeignKey("promo_Id")]
+        public Promotion promo { get; set; }
     }
 }

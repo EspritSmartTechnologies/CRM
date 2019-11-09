@@ -10,11 +10,20 @@ namespace Domain.Entities
     public class Quote
     {
         [Key]
-        public int IdQuote { get; set; }
-        public DateTime SendDate { get; set; }
-        public DateTime ValidDate { get; set; }
-        [Required]
-        public Payment Payment { get; set; }
-        public string Content { get; set; }
+        public int QuoteId { get; set; }
+
+        //////////ForeignKey
+
+
+        /////////////////
+        [DataType(DataType.Date)]
+        public DateTime Senddate { get; set; }
+
+        public string nom { get; set; }
+        public string prenom { get; set; }
+        public string mail { get; set; }
+
+        public string description { get; set; }
+
     }
 }

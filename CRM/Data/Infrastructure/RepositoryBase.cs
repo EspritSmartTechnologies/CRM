@@ -104,7 +104,11 @@ namespace Data.Infrastructure
         }
 
 
-
+        public void Update(T Entity)
+        {
+            dbset.Attach(Entity);
+            dataContext.Entry<T>(Entity).State = EntityState.Modified;
+        }
 
     }
 }
