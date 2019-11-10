@@ -70,6 +70,16 @@ namespace Data.Configurations
             .WithMany(a => a.Reacts)
             .HasForeignKey(n => n.UserId)
             .WillCascadeOnDelete(true);
+
+            HasOptional(n => n.Comment)
+            .WithMany(a => a.Reacts)
+            .HasForeignKey(n => n.IdCommentaire)
+            .WillCascadeOnDelete(false);
+
+            HasOptional(n => n.Post)
+            .WithMany(a => a.Reacts)
+            .HasForeignKey(n => n.IdPost)
+            .WillCascadeOnDelete(false);
         }
     }
 

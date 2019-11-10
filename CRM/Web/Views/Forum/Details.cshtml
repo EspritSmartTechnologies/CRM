@@ -127,6 +127,34 @@
                                 @Html.ActionLink("Edit", "Edit", new { id = Model.IdPost }, new { @class = "btn btn-color btn-rounded" });
                                 @Html.ActionLink("Delete", "Delete", new { id = Model.IdPost }, new { @class = "btn btn-color btn-rounded" });
                             }
+                            else
+                            {
+                                using (Html.BeginForm("MakeReact", "Forum", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    @*<input type="hidden" value=@itemm.IdComment.ToString() name="IdCommentaire">*@
+                                    <input type="hidden" value=@Model.IdPost.ToString() name="idPost">
+                                    <input type="hidden" value="0" name="typeReact">
+                                    <div class="form-actions no-color">
+                                        <input type="submit" value="Upvote" class="btn btn-default" />
+                                    </div>
+                                    @Model.Reacts.Where(x => x.Type == Domain.Entities.ReactType.Upvote).Count()
+                                }
+
+                                using (Html.BeginForm("MakeReact", "Forum", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    @*<input type="hidden" value=@itemm.IdComment.ToString() name="IdCommentaire">*@
+                                    <input type="hidden" value=@Model.IdPost.ToString() name="idPost">
+                                    <input type="hidden" value="1" name="typeReact">
+                                    <div class="form-actions no-color">
+                                        <input type="submit" value="Downvote" class="btn btn-default" />
+                                    </div>
+                                    @Model.Reacts.Where(x => x.Type == Domain.Entities.ReactType.Downvote).Count()
+                                }
+                            }
                         </div>
 
                     </div>

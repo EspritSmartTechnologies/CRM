@@ -37,13 +37,15 @@ namespace Web.Controllers
         }
         // GET: Forum
         [Route("Forum")]
-        public ActionResult Index()
+        public ActionResult Index(string query)
         {
-            return View(ps.GetInclude(filter: x=>x.User.Email == "jawhar.hamitouche@esprit.tn",includes: x=>x.User));
+            if(query != null)
+                return View(ps.GetInclude(filter:x=>(x.Title.Contains(query) || x.Content.Contains(query) || x.User.UserName.Contains(query)) ,includes: x => x.User));
+            return View(ps.GetInclude(includes: x=>x.User));
         }
 
         // GET: Forum/Details/5
-        [Route("Forum/Post")]
+        [Authorize]
         public ActionResult Details(int? id)
         {
 
@@ -52,14 +54,17 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            System.Linq.Expressions.Expression<System.Func<Post, object>>[] exp = new System.Linq.Expressions.Expression<Func<Post, object>>[2];//x => x.Comments;//new List<System.Linq.Expressions.Expression>();
+            System.Linq.Expressions.Expression<System.Func<Post, object>>[] exp = new System.Linq.Expressions.Expression<Func<Post, object>>[3];//x => x.Comments;//new List<System.Linq.Expressions.Expression>();
             exp[0] = x => x.Comments;
             exp[1] = x => x.User;
+            exp[2] = x => x.Reacts;
 
             Post post = ps.GetInclude(filter: x => x.IdPost == id, includes: exp).First();
-            
+            System.Linq.Expressions.Expression<System.Func<Comment, object>>[] exp2 = new System.Linq.Expressions.Expression<Func<Comment, object>>[2];//x => x.Comments;//new List<System.Linq.Expressions.Expression>();
+            exp2[0] = x => x.Reacts;
+            exp2[1] = x => x.User;
             CommentService cs = new CommentService();
-            ViewBag.comments = cs.GetInclude(filter: x=>x.PostId == id,includes:x=>x.User);
+            ViewBag.comments = cs.GetInclude(filter: x=>x.PostId == id,includes:exp2);
             if (post == null)
             {
                 return HttpNotFound();
@@ -239,6 +244,78 @@ namespace Web.Controllers
             ViewBag.user = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
             return RedirectToAction("Details", new { id = id });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MakeReact([Bind(Include = "typeReact")]int typeReact, [Bind(Include = "idPost")]int idPost, [Bind(Include = "idComment")]int? idComment)
+        {
+            try
+            {
+                React react = new React();
+                ReactService rs = new ReactService();
+                var user = System.Web.HttpContext.Current.User.Identity.GetUserId();
+                ViewBag.user = user;
+                if (idComment != null)
+                {
+
+                    React r = rs.GetInclude(filter: x => x.UserId == user && x.IdCommentaire == idComment).FirstOrDefault();
+                    if (r != null)
+                    {
+                        react.IdReact = r.IdReact;
+                        react.UserId = user;
+                        react.IdCommentaire = idComment;
+                        if (typeReact == 1)
+                            react.Type = ReactType.Downvote;
+                        else
+                            react.Type = ReactType.Upvote;
+                        rs.Update(react.IdReact, react);
+                    }
+                    else
+                    {
+                        react.UserId = user;
+                        react.IdCommentaire = idComment;
+                        if (typeReact == 1)
+                            react.Type = ReactType.Downvote;
+                        else
+                            react.Type = ReactType.Upvote;
+                        rs.Add(react);
+                    }
+                }
+                else
+                {
+                    React r = rs.GetInclude(filter: x => x.UserId == user && x.IdPost == idPost).FirstOrDefault();
+                    if (r != null)
+                    {
+                        react.IdReact = r.IdReact;
+                        react.UserId = user;
+                        react.IdPost = idPost;
+                        if (typeReact == 1)
+                            react.Type = ReactType.Downvote;
+                        else
+                            react.Type = ReactType.Upvote;
+                        rs.Update(react.IdReact, react);
+                    }
+                    else
+                    {
+                        react.UserId = user;
+                        react.IdPost = idPost;
+                        if (typeReact == 1)
+                            react.Type = ReactType.Downvote;
+                        else
+                            react.Type = ReactType.Upvote;
+                        rs.Add(react);
+                    }
+                }
+
+                rs.Commit();
+            }
+            catch (Exception e)
+            {
+
+            }
+            return RedirectToAction("Details", new { id = idPost });
+            
         }
     }
 }

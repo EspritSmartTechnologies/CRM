@@ -19,7 +19,9 @@ namespace Domain.Entities
         public ApplicationUser User { get; set; }
         public string UserId { get; set; }
         public Post Post { get; set; }
+        public int? IdPost { get; set; }
         public Comment Comment { get; set; }
+        public int? IdCommentaire { get; set; }
         public ReactType Type { get; set; }
     }
 }
