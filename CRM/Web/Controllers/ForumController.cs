@@ -46,6 +46,8 @@ namespace Web.Controllers
         [Route("Forum/Post")]
         public ActionResult Details(int? id)
         {
+
+            ViewBag.user = System.Web.HttpContext.Current.User.Identity.GetUserId();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -55,8 +57,9 @@ namespace Web.Controllers
             exp[1] = x => x.User;
 
             Post post = ps.GetInclude(filter: x => x.IdPost == id, includes: exp).First();
+            
             CommentService cs = new CommentService();
-            ViewBag.comments = cs.GetCommentairesByPost((int)id);
+            ViewBag.comments = cs.GetInclude(filter: x=>x.PostId == id,includes:x=>x.User);
             if (post == null)
             {
                 return HttpNotFound();
@@ -65,7 +68,6 @@ namespace Web.Controllers
         }
 
         // GET: Forum/Create
-        [Route("Forum/Post/Create")]
         [Authorize]
         public ActionResult Create()
         {
@@ -77,7 +79,6 @@ namespace Web.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Forum/Post/Create")]
         [Authorize]
         public ActionResult Create([Bind(Include = "IdPost,Title,Content")] Post post, [Bind(Include = "file")]HttpPostedFileBase file)
         {
@@ -103,20 +104,41 @@ namespace Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Forum/Post/Create")]
         [Authorize]
         public ActionResult Details([Bind(Include = "IdPost")] int id, [Bind(Include = "Content")]string content)
         {
             //PostService ps = new PostService();
-            System.Linq.Expressions.Expression<System.Func<Post, object>>[] exp = new System.Linq.Expressions.Expression<Func<Post, object>> [2];//x => x.Comments;//new List<System.Linq.Expressions.Expression>();
-            exp[0] = x=>x.Comments;
-            exp[1] = x=>x.User;
+            System.Linq.Expressions.Expression<System.Func<Post, object>>[] exp = new System.Linq.Expressions.Expression<Func<Post, object>>[2];//x => x.Comments;//new List<System.Linq.Expressions.Expression>();
+            exp[0] = x => x.Comments;
+            exp[1] = x => x.User;
 
             Post post = ps.GetInclude(filter: x => x.IdPost == id, includes: exp).First();
             CommentService cs = new CommentService();
             Comment c = new Comment() { PostId = id, Content = content, PostDate = DateTime.Now };
-            c.UserId = System.Web.HttpContext.Current.User.Identity.GetUserId(); 
+            c.UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             cs.Add(c);
+            cs.Commit();
+            ViewBag.user = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            return RedirectToAction("Details", new { id = id });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult Comment([Bind(Include = "IdPost")] int id, [Bind(Include = "Content")]string content, [Bind(Include = "IdComment")]int IdComment)
+        {
+            //PostService ps = new PostService();
+            System.Linq.Expressions.Expression<System.Func<Post, object>>[] exp = new System.Linq.Expressions.Expression<Func<Post, object>>[2];//x => x.Comments;//new List<System.Linq.Expressions.Expression>();
+            exp[0] = x => x.Comments;
+            exp[1] = x => x.User;
+
+            Post post = ps.GetInclude(filter: x => x.IdPost == id, includes: exp).First();
+            CommentService cs = new CommentService();
+            Comment c = cs.GetById((long)IdComment);//new Comment() { PostId = id,IdComment=IdComment, Content = content, PostDate = DateTime.Now };
+            c.Content = content;               
+            c.UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            cs.Update(c.IdComment, c);
             cs.Commit();
 
 
@@ -147,14 +169,20 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         [Route("Forum/Post/Edit")]
         [Authorize]
-        public ActionResult Edit([Bind(Include = "IdPost,PostDate,Content")] Post post)
+        public ActionResult Edit([Bind(Include = "IdPost,Title,Content")] Post postt, [Bind(Include = "file")]HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            Post post = ps.GetInclude(filter: x => x.IdPost == postt.IdPost).First();
+            
+                if (file.ContentLength > 0)
             {
-                ps.Update(post.IdPost, post);
-                return RedirectToAction("Index");
+                post.Image = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Content/uploads"), post.Image);
+                file.SaveAs(path);
             }
-            return View(post);
+                post.Content = postt.Content;
+                ps.Update(post.IdPost,post);
+                ps.Commit();
+            return RedirectToAction("Details", new { id = post.IdPost });
         }
 
         // GET: Forum/Delete/5
@@ -194,6 +222,23 @@ namespace Web.Controllers
 
             }
             base.Dispose(disposing);
+        }
+
+        // POST: Comments/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteCom([Bind(Include = "IdCommentaire")]int IdCommentaire)
+        {
+            CommentService cs = new CommentService();
+            Comment comment = cs.GetInclude(filter: x=>x.IdComment == IdCommentaire, includes: x=>x.Post).First();
+            int id = comment.Post.IdPost;
+             comment = cs.GetById((long)IdCommentaire);
+            cs.Delete(comment);
+            cs.Commit();
+
+            ViewBag.user = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            return RedirectToAction("Details", new { id = id });
         }
     }
 }

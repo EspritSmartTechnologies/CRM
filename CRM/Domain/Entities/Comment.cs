@@ -23,6 +23,6 @@ namespace Domain.Entities
         public List<React> Reacts { get; set; }
         public string Content { get; set; }
         public Post Post { get; set; }
-        public int PostId { get; set; }
+        public int? PostId { get; set; }
     }
 }

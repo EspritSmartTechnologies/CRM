@@ -35,7 +35,7 @@ namespace Data.Configurations
             HasRequired(n => n.User)
             .WithMany(a => a.Posts)
             .HasForeignKey(n => n.UserId)
-            .WillCascadeOnDelete(true);
+            .WillCascadeOnDelete(false);
         }
     }
 
@@ -47,12 +47,12 @@ namespace Data.Configurations
             HasRequired(n => n.User)
             .WithMany(a => a.Comments)
             .HasForeignKey(n => n.UserId)
-            .WillCascadeOnDelete(true);
+            .WillCascadeOnDelete(false);
 
-            HasRequired(n => n.Post)
+            HasOptional(n => n.Post)
             .WithMany(a => a.Comments)
             .HasForeignKey(n => n.PostId)
-            .WillCascadeOnDelete(false);
+            .WillCascadeOnDelete(true);
 
             HasOptional(n => n.Parent)
             .WithMany(a => a.Comments)

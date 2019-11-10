@@ -122,7 +122,11 @@
                             <p>
                                 @Html.DisplayNameFor(model => model.Content)
                             </p>
-
+                            @if (ViewBag.user == Model.UserId)
+                            {
+                                @Html.ActionLink("Edit", "Edit", new { id = Model.IdPost }, new { @class = "btn btn-color btn-rounded" });
+                                @Html.ActionLink("Delete", "Delete", new { id = Model.IdPost }, new { @class = "btn btn-color btn-rounded" });
+                            }
                         </div>
 
                     </div>
@@ -131,7 +135,7 @@
                 <!-- end article full post -->
                 <h4>@(Model.Comments != null ? Model.Comments.Count().ToString() : "0") comments</h4>
                 <ul class="media-list">
-                    @foreach (var itemm in Model.Comments)
+                    @foreach (var itemm in ViewBag.Comments)
                     {
                         <li class="media">
                             <a class="pull-left" href="#">
@@ -143,7 +147,33 @@
                                 <p>
                                     @itemm.Content
                                 </p>
-                                @*<a href="#" class="btn btn-color btn-rounded">Reply</a>*@
+                                @if (ViewBag.user == itemm.UserId)
+                                {
+                                <a href="#" class="btn btn-color btn-rounded">Edit</a>
+                                using (Html.BeginForm("DeleteCom", "Forum", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <input type="hidden" value=@itemm.IdComment.ToString() name="IdCommentaire">
+                                    <div class="form-actions no-color">
+                                        <input type="submit" value="Delete" class="btn btn-default" />
+                                    </div>
+                                }
+                                using (Html.BeginForm("Comment", "Forum", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input name="IdComment" value=@itemm.IdComment.ToString() hidden />
+
+                                    <div class="row">
+                                        <input type="hidden" name="id" value="@Model.IdPost" />
+                                        <div class="span8">
+                                            <label>Comment <span>*</span></label>
+                                            <textarea name="content" rows="9" placeholder="Your comment"></textarea>
+                                            <button class="btn btn-color btn-rounded" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                }
+                                }
 
                             </div>
                         </li>
@@ -171,10 +201,4 @@
 
 
 
-<h2>Details</h2>
 
-
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdPost }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

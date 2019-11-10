@@ -17,9 +17,9 @@ namespace Data
         public ApplicationDbContext()
             : base("DBContext")
         {
-            Database.SetInitializer<ApplicationDbContext>(null);
-            Configuration.LazyLoadingEnabled = false;
-            Configuration.ProxyCreationEnabled = false;
+            //Database.SetInitializer<ApplicationDbContext>(null);
+            //Configuration.LazyLoadingEnabled = false;
+            //Configuration.ProxyCreationEnabled = false;
         }
         
 

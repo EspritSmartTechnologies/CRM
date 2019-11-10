@@ -58,7 +58,7 @@ namespace Data.Infrastructure
         }
         public virtual IEnumerable<T> GetAll()
         {
-            return dbset.ToList();
+            return dbset.AsNoTracking().ToList();
         }
         public virtual IEnumerable<T> GetAll(params Expression<Func<T, object>>[] properties)
         {
@@ -68,7 +68,7 @@ namespace Data.Infrastructure
             query = properties
                        .Aggregate(query, (current, property) => current.Include(property));
 
-            return query.ToList(); 
+            return query.AsNoTracking().ToList(); 
         }
         public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where = null, Expression<Func<T, bool>> orderBy = null)
         {
@@ -81,11 +81,11 @@ namespace Data.Infrastructure
             {
                 Query = Query.OrderBy(orderBy);
             }
-            return Query;
+            return Query.AsNoTracking();
         }
         public T Get(Expression<Func<T, bool>> where)
         {
-            return dbset.Where(where).FirstOrDefault<T>();
+            return dbset.Where(where).AsNoTracking().FirstOrDefault<T>();
         }
         public virtual List<T> GetInclude(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, params Expression<Func<T, object>>[] includes)
         {
@@ -100,7 +100,7 @@ namespace Data.Infrastructure
             if (orderBy != null)
                 query = orderBy(query);
 
-            return query.ToList();
+            return query.AsNoTracking().ToList();
         }
 
 

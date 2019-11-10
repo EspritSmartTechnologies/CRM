@@ -67,25 +67,13 @@
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\201911090215191_userrrsConvddd.cs" />
-    <Compile Include="Migrations\201911090215191_userrrsConvddd.designer.cs">
-      <DependentUpon>201911090215191_userrrsConvddd.cs</DependentUpon>
+    <Compile Include="Migrations\201911101415515_xxxxx.cs" />
+    <Compile Include="Migrations\201911101415515_xxxxx.designer.cs">
+      <DependentUpon>201911101415515_xxxxx.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201911090220367_comment.cs" />
-    <Compile Include="Migrations\201911090220367_comment.designer.cs">
-      <DependentUpon>201911090220367_comment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911100106299_belha.cs" />
-    <Compile Include="Migrations\201911100106299_belha.designer.cs">
-      <DependentUpon>201911100106299_belha.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911100110266_belhamibouu.cs" />
-    <Compile Include="Migrations\201911100110266_belhamibouu.designer.cs">
-      <DependentUpon>201911100110266_belhamibouu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911100145320_belhamibouuu.cs" />
-    <Compile Include="Migrations\201911100145320_belhamibouuu.designer.cs">
-      <DependentUpon>201911100145320_belhamibouuu.cs</DependentUpon>
+    <Compile Include="Migrations\201911101424008_xxxxxx.cs" />
+    <Compile Include="Migrations\201911101424008_xxxxxx.designer.cs">
+      <DependentUpon>201911101424008_xxxxxx.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,20 +93,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201911090215191_userrrsConvddd.resx">
-      <DependentUpon>201911090215191_userrrsConvddd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911101415515_xxxxx.resx">
+      <DependentUpon>201911101415515_xxxxx.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911090220367_comment.resx">
-      <DependentUpon>201911090220367_comment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911100106299_belha.resx">
-      <DependentUpon>201911100106299_belha.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911100110266_belhamibouu.resx">
-      <DependentUpon>201911100110266_belhamibouu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911100145320_belhamibouuu.resx">
-      <DependentUpon>201911100145320_belhamibouuu.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911101424008_xxxxxx.resx">
+      <DependentUpon>201911101424008_xxxxxx.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
