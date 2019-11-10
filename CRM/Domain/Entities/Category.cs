@@ -12,5 +12,7 @@ namespace Domain.Entities
         [Key]
         public int IdCategory { get; set; }
         public string Cat { get; set; }
+
+        public List<Product> Products { get; set; }
     }
 }
