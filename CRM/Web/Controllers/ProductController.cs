@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Domain.Entities;
 using Web.Models;
 using Services;
+using System.IO;
 
 namespace Web.Controllers
 {
@@ -22,7 +23,10 @@ namespace Web.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            return View(ps.GetAll().ToList());
+            System.Linq.Expressions.Expression<System.Func<Product, object>>[] exp = new System.Linq.Expressions.Expression<Func<Product, object>>[2];//x => x.Comments;//new List<System.Linq.Expressions.Expression>();
+            exp[0] = x => x.PointOfSale;
+            exp[1] = x => x.Category;
+            return View(ps.GetInclude(includes: exp).ToList());
         }
 
         // GET: Product/Details/5
@@ -32,7 +36,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductService product = ps.GetById(id);
+            Product product = ps.GetById((long)id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -54,12 +58,18 @@ namespace Web.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProduct,Colour,Quantity,Category,Price,PointOfSale,IdCategory")] Product product)
+        public ActionResult Create([Bind(Include = "IdProduct,Colour,Quantity,Category,Price,PointOfSale,IdCategory")] Product product, [Bind(Include = "file")] HttpPostedFileBase file)
         {
             CategoryService cs = new CategoryService();
-            product.Category = cs.GetById(Convert.ToInt32(product.IdProduct));
+            product.Category = cs.GetById(Convert.ToInt32(product.IdCategory));
             if (ModelState.IsValid)
             {
+                if (file.ContentLength > 0)
+                {
+                    product.Image = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Content/uploads"), product.Image);
+                    file.SaveAs(path);
+                }
                 ps.Add(product);
                 ps.Commit();
                 return RedirectToAction("Index");
@@ -75,7 +85,9 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductService product = ps.GetById(id);
+            CategoryService cs = new CategoryService();
+            ViewBag.cats = cs.GetAll();
+            Product product = ps.GetById((long)id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -88,7 +100,7 @@ namespace Web.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProduct,Colour,Quantity,Category,Price,PointOfSale")] Product product)
+        public ActionResult Edit([Bind(Include = "IdProduct,Colour,Quantity,IdCategory,Price,PointOfSale")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +118,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductService product = ps.GetById(id);
+            Product product = ps.GetById((long)id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -119,7 +131,7 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ProductService product = ps.GetById(id);
+            Product product = ps.GetById((long)id);
             ps.Delete(product);
             ps.Commit();
             return RedirectToAction("Index");

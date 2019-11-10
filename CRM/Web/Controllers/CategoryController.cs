@@ -48,7 +48,7 @@ namespace Web.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProduct,Label")] Category category)
+        public ActionResult Create([Bind(Include = "IdCategory,Cat")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +81,7 @@ namespace Web.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProduct,Label")] Category category)
+        public ActionResult Edit([Bind(Include = "IdCategory,Cat")] Category category)
         {
             if (ModelState.IsValid)
             {

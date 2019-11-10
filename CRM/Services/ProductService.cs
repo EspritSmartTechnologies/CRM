@@ -17,15 +17,6 @@ namespace Services
         public ProductService() : base(utk)
         {
         }
-
-        public ProductService GetById(int? id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(ProductService product)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

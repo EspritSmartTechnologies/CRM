@@ -14,11 +14,11 @@ namespace Domain.Entities
         [Key]
         public int IdProduct { get; set; }
         public Category Category { get; set; }
-        [NotMapped]
-        public string IdCategory { get; set; }
+        public int IdCategory { get; set; }
         public string Colour { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public PointOfSale PointOfSale { get; set; }
+        public string Image { get; set; }
     }
 }

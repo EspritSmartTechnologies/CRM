@@ -72,4 +72,16 @@ namespace Data.Configurations
             .WillCascadeOnDelete(true);
         }
     }
+
+    class ProductConfig : EntityTypeConfiguration<Product>
+    {
+        public ProductConfig()
+        {
+            //modelBuilder.Entity<Post>()
+            HasRequired(n => n.Category)
+            .WithMany(a => a.Products)
+            .HasForeignKey(n => n.IdCategory)
+            .WillCascadeOnDelete(false);
+        }
+    }
 }

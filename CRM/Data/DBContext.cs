@@ -62,6 +62,7 @@ namespace Data
             modelBuilder.Configurations.Add(new PostConfig());
             modelBuilder.Configurations.Add(new CommentConfig());
             modelBuilder.Configurations.Add(new ReactConfig());
+            modelBuilder.Configurations.Add(new ProductConfig());
         }
 
     }
