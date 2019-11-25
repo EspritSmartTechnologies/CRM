@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Domain.Entities.Claim>
+
+@{
+    Layout = "~/Views/Shared/_LayoutFront.cshtml";
+}
+
+<section id="subintro">
+
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <h3>Blog <strong>left sidebar</strong></h3>
+            </div>
+            <div class="span8">
+                <ul class="breadcrumb notop">
+                    <li><a href="#">Home</a><span class="divider">/</span></li>
+                    <li class="active">Blog left sidebar</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</section>
+<section>
+    <div class="container">
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.State)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Content)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.State)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.IdClaim }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.IdClaim }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.IdClaim })
+                    </td>
+                </tr>
+            }
+
+        </table>
+  </div></section>

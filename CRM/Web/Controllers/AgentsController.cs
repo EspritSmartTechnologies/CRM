@@ -40,6 +40,9 @@ namespace Web.Controllers
         // GET: Agents/Create
         public ActionResult Create()
         {
+            PointofprospectionService pps = new PointofprospectionService();
+            IEnumerable<PointOfProspection> pss = pps.GetAll();
+            ViewBag.points = pss;
             return View();
         }
 
@@ -48,8 +51,11 @@ namespace Web.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdAgent,FullName")] Agents agents)
+        public ActionResult Create([Bind(Include = "IdAgent,FullName,IdPointOfProdpection")] Agents agents)
         {
+            PointofprospectionService pps = new PointofprospectionService();
+            IEnumerable<PointOfProspection> pss = pps.GetAll();
+            ViewBag.points = pss;
             if (ModelState.IsValid)
             {
                 ass.Add(agents);
@@ -63,6 +69,9 @@ namespace Web.Controllers
         // GET: Agents/Edit/5
         public ActionResult Edit(int? id)
         {
+            PointofprospectionService pps = new PointofprospectionService();
+            IEnumerable<PointOfProspection> pss = pps.GetAll();
+            ViewBag.points = pss;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,8 +89,11 @@ namespace Web.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdAgent,FullName")] Agents agents)
+        public ActionResult Edit([Bind(Include = "IdAgent,FullName,IdPointOfProdpection")] Agents agents)
         {
+            PointofprospectionService pps = new PointofprospectionService();
+            IEnumerable<PointOfProspection> pss = pps.GetAll();
+            ViewBag.points = pss;
             if (ModelState.IsValid)
             {
                 ass.Update(agents.IdAgent, agents);

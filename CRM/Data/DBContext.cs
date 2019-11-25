@@ -63,6 +63,13 @@ namespace Data
             modelBuilder.Configurations.Add(new CommentConfig());
             modelBuilder.Configurations.Add(new ReactConfig());
             modelBuilder.Configurations.Add(new ProductConfig());
+            modelBuilder.Configurations.Add(new AgentConfig());
+            modelBuilder.Configurations.Add(new ResourceConfig());
+            modelBuilder.Configurations.Add(new CLaimsConfig());
+            modelBuilder.Configurations.Add(new SatisfactionConfig());
+            modelBuilder.Configurations.Add(new ResponseConfig());
+            modelBuilder.Entity<PointOfProspection>().Property(x => x.lat).HasPrecision(12, 10);
+            modelBuilder.Entity<PointOfProspection>().Property(x => x.lon).HasPrecision(12, 10);
         }
 
     }

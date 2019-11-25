@@ -14,5 +14,6 @@ namespace Domain.Entities
         public int IdAgent { get; set; }
         public string FullName{ get; set; }
         public PointOfProspection PointOfProspection { get; set; }
+        public int IdPointOfProdpection { get; set; }
     }
 }

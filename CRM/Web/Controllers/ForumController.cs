@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -14,6 +15,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Services;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace Web.Controllers
 {
@@ -35,6 +38,12 @@ namespace Web.Controllers
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.Context));
 
         }
+
+        public ActionResult chat()
+        {
+            return View();
+        }
+
         // GET: Forum
         [Route("Forum")]
         public ActionResult Index(string query)
@@ -309,6 +318,37 @@ namespace Web.Controllers
                 }
 
                 rs.Commit();
+                react = rs.GetInclude(includes: xx => xx.User).Last();
+                //mail
+                //if (!react.User.Trophies.Contains("comment")) { 
+                    try
+                    {
+                        MailMessage mail = new MailMessage("malek.ferchichi@esprit.tn", react.User.Email);
+                        mail.Subject = "CRM Trophy";
+                        mail.Body = "You just received a new trophy : Reacts King";
+                        
+                        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                        
+                        smtpClient.Credentials = new System.Net.NetworkCredential("jawhar.hamitouche@esprit.tn", "Mallaana007");
+                        smtpClient.EnableSsl = true;
+                        smtpClient.Send(mail);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.StackTrace);
+                    }
+
+                    //sms
+                    const string accountSid = "AC127cc5681eb0c7798f01f68f753e657d";
+                    const string authToken = "4c4f04acab6ecd9f7efd6d9d1290195a";
+                    TwilioClient.Init(accountSid, authToken);
+
+                    var message = MessageResource.Create(
+                        from: new Twilio.Types.PhoneNumber("+12029309654"),
+                    to: new Twilio.Types.PhoneNumber("+21650334771"),
+                        body: "You just received a new trophy : Reacts King");
+                    
+               // }
             }
             catch (Exception e)
             {

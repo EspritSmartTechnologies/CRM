@@ -9,18 +9,20 @@ namespace Domain.Entities
 {
     public enum Level
     {
-        Très,
-        Satisfait,
+        Non,
         Peu,
-        Non
+        Satisfait,
+        Très,
     }
     public class Satisfaction
     {
         [Key]
         public int IdSatisfaction { get; set; }
         public ApplicationUser User { get; set; }
+        public string idUser { get; set; }
         public Level Level { get; set; }
         public Claim Claim { get; set; }
+        public int IdClaim { get; set; }
 
     }
 }

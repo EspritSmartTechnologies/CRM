@@ -40,6 +40,9 @@ namespace Web.Controllers
         // GET: Resources/Create
         public ActionResult Create()
         {
+            PointofprospectionService pps = new PointofprospectionService();
+            IEnumerable<PointOfProspection> pss = pps.GetAll();
+            ViewBag.points = pss;
             return View();
         }
 
@@ -48,8 +51,11 @@ namespace Web.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdResource,Quantity,Name")] Resources resources)
+        public ActionResult Create([Bind(Include = "IdResource,Quantity,Name,IdPointOfProspection")] Resources resources)
         {
+            PointofprospectionService pps = new PointofprospectionService();
+            IEnumerable<PointOfProspection> pss = pps.GetAll();
+            ViewBag.points = pss;
             if (ModelState.IsValid)
             {
                 rs.Add(resources);
@@ -63,6 +69,9 @@ namespace Web.Controllers
         // GET: Resources/Edit/5
         public ActionResult Edit(int? id)
         {
+            PointofprospectionService pps = new PointofprospectionService();
+            IEnumerable<PointOfProspection> pss = pps.GetAll();
+            ViewBag.points = pss;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,8 +89,11 @@ namespace Web.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdResource,Quantity,Name")] Resources resources)
+        public ActionResult Edit([Bind(Include = "IdResource,Quantity,Name,IdPointOfProspection")] Resources resources)
         {
+            PointofprospectionService pps = new PointofprospectionService();
+            IEnumerable<PointOfProspection> pss = pps.GetAll();
+            ViewBag.points = pss;
             if (ModelState.IsValid)
             {
                 rs.Update(resources.IdResource, resources);

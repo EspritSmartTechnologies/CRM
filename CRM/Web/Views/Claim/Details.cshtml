@@ -1,0 +1,98 @@
+﻿@model Domain.Entities.Claim
+
+@{
+    Layout = "~/Views/Shared/_LayoutFront.cshtml";
+}
+
+<section id="subintro">
+
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <h3>Blog <strong>left sidebar</strong></h3>
+            </div>
+            <div class="span8">
+                <ul class="breadcrumb notop">
+                    <li><a href="#">Home</a><span class="divider">/</span></li>
+                    <li class="active">Blog left sidebar</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</section>
+<section>
+    <div class="container">
+        <div>
+            <h4>Claim</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.State)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.State)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Date)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Date)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Content)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Content)
+                </dd>
+                @if (ViewBag.lr != null)
+                {
+                    <dt>
+                        Responses
+                    </dt>
+                    foreach (var item in ViewBag.lr)
+                    {
+                        <dd>
+                            @item.Content
+                        </dd>
+                    }
+                    { Domain.Entities.Satisfaction s;}
+                    using (Html.BeginForm("Satisfaction", "Claim", FormMethod.Post))
+                    {@Html.AntiForgeryToken()
+                    <div class="form-group">
+                        Niveau de satisfaction
+                        <div class="col-md-10">
+                            <select name="satisfaction">
+                                <option value="0">Non Satisfait</option>
+                                <option value="1">Peu Satisfait</option>
+                                <option value="2">Satisfait</option>
+                                <option value="3">Tres Satisfait</option>
+                            </select>
+                            <input type="hidden" name="idClaim" value=@Model.IdClaim.ToString() />
+                            <input type="submit" />
+                        </div>
+                    </div>
+                }
+
+                }
+
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.IdClaim }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+        </div></section>

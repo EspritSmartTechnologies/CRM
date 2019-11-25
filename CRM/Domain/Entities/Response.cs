@@ -13,6 +13,9 @@ namespace Domain.Entities
         public int IdResponse { get; set; }
         public DateTime ResponseDate { get; set; }
         public ApplicationUser User { get; set; }
+        public string IdUser { get; set; }
         public string Content { get; set; }
+        public int idClaim { get; set; }
+        public Claim Claim { get; set; }
     }
 }

@@ -14,5 +14,6 @@ namespace Domain.Entities
         public int Quantity { get; set; }
         public string Name { get; set; }
         public PointOfProspection pointOfProspection { get; set; }
+        public int IdPointOfProspection { get; set; }
     }
 }

@@ -116,7 +116,7 @@
             </div>
         </div>
     </header>
-    
+
 
 
     @RenderBody()
@@ -212,7 +212,7 @@
             </div>
         </div>
     </footer>
-    <script src=@Url.Content("/Content/Plato/assets/js/jquery.js")></script>
+    @*<script src=@Url.Content("/Content/Plato/assets/js/jquery.js")></script>*@
     <script src=@Url.Content("/Content/Plato/assets/js/modernizr.js")></script>
     <script src=@Url.Content("/Content/Plato/assets/js/jquery.easing.1.3.js")></script>
     <script src=@Url.Content("/Content/Plato/assets/js/google-code-prettify/prettify.js")></script>
@@ -228,6 +228,8 @@
     <script src=@Url.Content("/Content/Plato/assets/js/jquery.ui.totop.js")></script>
     <!-- Template Custom Javascript File -->
     <script src="@Url.Content("/Content/Plato/assets/js/custom.js")></script>
+
+
 
     @RenderSection("scripts", required: false)
 </body>

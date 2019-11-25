@@ -14,5 +14,8 @@ namespace Domain.Entities
         public Type Type { get; set; }
         public List<Resources> Resources { get; set; }
         public List<Agents> Agents { get; set; }
+        public string name { get; set; }
+        public decimal lat { get; set; }
+        public decimal lon { get; set; }
     }
 }

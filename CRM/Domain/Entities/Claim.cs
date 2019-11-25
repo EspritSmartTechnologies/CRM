@@ -27,11 +27,13 @@ namespace Domain.Entities
     {
         [Key]
         public int IdClaim { get; set; }
-        public Type Type { get; set; }
+        public Types Type { get; set; }
         public State State { get; set; }
         public DateTime Date { get; set; }
         public List<Response> Responses { get; set; }
+        public List<Satisfaction> Satisfactions { get; set; }
         public ApplicationUser User { get; set; }
+        public string userId { get; set; }
         public string Content { get; set; }
 
     }

@@ -94,4 +94,67 @@ namespace Data.Configurations
             .WillCascadeOnDelete(false);
         }
     }
+    class ResourceConfig : EntityTypeConfiguration<Resources>
+    {
+        public ResourceConfig()
+        {
+            //modelBuilder.Entity<Post>()
+            HasRequired(n => n.pointOfProspection)
+            .WithMany(a => a.Resources)
+            .HasForeignKey(n => n.IdPointOfProspection)
+            .WillCascadeOnDelete(false);
+        }
+    }
+    class AgentConfig : EntityTypeConfiguration<Agents>
+    {
+        public AgentConfig()
+        {
+            //modelBuilder.Entity<Post>()
+            HasRequired(n => n.PointOfProspection)
+            .WithMany(a => a.Agents)
+            .HasForeignKey(n => n.IdPointOfProdpection)
+            .WillCascadeOnDelete(false);
+        }
+    }
+    class CLaimsConfig : EntityTypeConfiguration<Claim>
+    {
+        public CLaimsConfig()
+        {
+            //modelBuilder.Entity<Post>()
+            HasRequired(n => n.User)
+            .WithMany(a => a.Claimss)
+            .HasForeignKey(n => n.userId)
+            .WillCascadeOnDelete(false);
+        }
+    }
+    class SatisfactionConfig : EntityTypeConfiguration<Satisfaction>
+    {
+        public SatisfactionConfig()
+        {
+            //modelBuilder.Entity<Post>()
+            HasRequired(n => n.User)
+            .WithMany(a => a.Satisfactions)
+            .HasForeignKey(n => n.idUser)
+            .WillCascadeOnDelete(false);
+            HasRequired(n => n.Claim)
+            .WithMany(a => a.Satisfactions)
+            .HasForeignKey(n => n.IdClaim)
+            .WillCascadeOnDelete(false);
+        }
+    }
+    class ResponseConfig : EntityTypeConfiguration<Response>
+    {
+        public ResponseConfig()
+        {
+            //modelBuilder.Entity<Post>()
+            HasRequired(n => n.User)
+            .WithMany(a => a.Responses)
+            .HasForeignKey(n => n.IdUser)
+            .WillCascadeOnDelete(false);
+            HasRequired(n => n.Claim)
+            .WithMany(a => a.Responses)
+            .HasForeignKey(n => n.idClaim)
+            .WillCascadeOnDelete(false);
+        }
+    }
 }

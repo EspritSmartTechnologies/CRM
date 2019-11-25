@@ -22,6 +22,11 @@ namespace Web.Controllers
             return View(ps.GetAll().ToList());
         }
 
+        public ActionResult IndexFront()
+        {
+            return View(ps.GetAll().ToList());
+        }
+
         // GET: PointOfProspections/Details/5
         public ActionResult Details(int? id)
         {
@@ -48,7 +53,7 @@ namespace Web.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdPointOfProspection,Type")] PointOfProspection pointOfProspection)
+        public ActionResult Create([Bind(Include = "IdPointOfProspection,Type,name,lat,lon")] PointOfProspection pointOfProspection)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +85,7 @@ namespace Web.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdPointOfProspection,Type")] PointOfProspection pointOfProspection)
+        public ActionResult Edit([Bind(Include = "IdPointOfProspection,Type,name,lat,lon")] PointOfProspection pointOfProspection)
         {
             if (ModelState.IsValid)
             {

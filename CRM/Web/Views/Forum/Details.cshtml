@@ -98,7 +98,7 @@
                 <!-- start article full post -->
                 <article class="blog-post">
                     <div class="post-heading">
-                        <h3><a href="#">@Html.DisplayNameFor(model => model.Title)</a></h3>
+                        <h3><a href="#">@Model.Title</a></h3>
                     </div>
                     <div class="clearfix">
                     </div>
@@ -110,7 +110,7 @@
                                 <i class="icon-bg-dark icon-circled icon-file icon-3x active"></i>
                             </div>
                             <ul class="post-meta">
-                                <li class="first"><i class="icon-calendar"></i><span>@Html.DisplayNameFor(model => model.PostDate)</span></li>
+                                <li class="first"><i class="icon-calendar"></i><span>@Model.PostDate</span></li>
                                 <li><i class="icon-list-alt"></i><span><a href="#">@(Model.Comments != null ? Model.Comments.Count().ToString() : "0") comments</a></span></li>
                                 <li class="last"><i class="icon-tags"></i><span><a href="#">Design</a>, <a href="#">Blog</a>, <a href="#">Tutorial</a></span></li>
                             </ul>
@@ -120,7 +120,7 @@
 
                         <div class="span6">
                             <p>
-                                @Html.DisplayNameFor(model => model.Content)
+                                @Model.Content
                             </p>
                             @if (ViewBag.user == Model.UserId)
                             {
@@ -129,32 +129,68 @@
                             }
                             else
                             {
+
                                 using (Html.BeginForm("MakeReact", "Forum", FormMethod.Post))
                                 {
-                                    @Html.AntiForgeryToken()
+                                @Html.AntiForgeryToken()
 
-                                    @*<input type="hidden" value=@itemm.IdComment.ToString() name="IdCommentaire">*@
+                                @*<input type="hidden" value=@itemm.IdComment.ToString() name="IdCommentaire">*@
+                                
+
                                     <input type="hidden" value=@Model.IdPost.ToString() name="idPost">
                                     <input type="hidden" value="0" name="typeReact">
                                     <div class="form-actions no-color">
-                                        <input type="submit" value="Upvote" class="btn btn-default" />
+                                        <input type="submit" value="Upvote" class="btn btn-rounded" style="background-color:cadetblue" />
                                     </div>
                                     @Model.Reacts.Where(x => x.Type == Domain.Entities.ReactType.Upvote).Count()
+                                
+
                                 }
+
 
                                 using (Html.BeginForm("MakeReact", "Forum", FormMethod.Post))
                                 {
-                                    @Html.AntiForgeryToken()
+                                @Html.AntiForgeryToken()
+                                
 
                                     @*<input type="hidden" value=@itemm.IdComment.ToString() name="IdCommentaire">*@
                                     <input type="hidden" value=@Model.IdPost.ToString() name="idPost">
                                     <input type="hidden" value="1" name="typeReact">
                                     <div class="form-actions no-color">
-                                        <input type="submit" value="Downvote" class="btn btn-default" />
+                                        <input type="submit" value="Downvote" class="btn btn-rounded" style="background-color:cadetblue" />
                                     </div>
                                     @Model.Reacts.Where(x => x.Type == Domain.Entities.ReactType.Downvote).Count()
+                                
                                 }
+
+                            
                             }
+                            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                            <div id="chart_div"></div>
+                            <script>google.charts.load('current', { packages: ['corechart', 'bar'] });
+                                google.charts.setOnLoadCallback(drawMultSeries);
+
+                                function drawMultSeries() {
+                                    var data = google.visualization.arrayToDataTable([
+                                        ['Reacts', 'Upvotes', 'Downvotes'],
+                                        ['', @Model.Reacts.Where(x => x.Type == Domain.Entities.ReactType.Upvote).Count(), @Model.Reacts.Where(x => x.Type == Domain.Entities.ReactType.Downvote).Count()]
+                                    ]);
+
+                                    var options = {
+                                        title: 'Reacts',
+                                        chartArea: { width: '50%' },
+                                        hAxis: {
+                                            title: 'Count',
+                                            minValue: 0
+                                        },
+                                        vAxis: {
+                                            title: 'Reacts'
+                                        }
+                                    };
+
+                                    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+                                    chart.draw(data, options);
+                                }</script>
                         </div>
 
                     </div>
@@ -197,7 +233,7 @@
                                         <div class="span8">
                                             <label>Comment <span>*</span></label>
                                             <textarea name="content" rows="9" placeholder="Your comment"></textarea>
-                                            <button class="btn btn-color btn-rounded" type="submit">Submit</button>
+                                            <button class="btn btn-color btn-rounded" type="submit">Update comment</button>
                                         </div>
                                     </div>
                                 }
